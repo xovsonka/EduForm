@@ -72,6 +72,15 @@ python setup.py
 
 > ⚠️ Make sure `psql` is in your system `PATH`; otherwise, the DB setup will fail.
 
+After that strat virtual environment
+```bash
+venv\Scripts\activate
+```
+And run app.py
+```bash
+python app.py
+```
+
 ---
 
 ## 🧪 4. Create a Virtual Environment
