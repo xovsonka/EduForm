@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('AI Materiály | EduForum') }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 text-center">🎓 {{ _('Generovanie študijných materiálov pomocou AI') }}</h2>
+
+  <form method="POST" action="{{ url_for('ai.generate') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="mb-3">
+      <label for="topic" class="form-label">{{ _('Téma') }}</label>
+      <input type="text" class="form-control" id="topic" name="topic" value="{{ topic or '' }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="level" class="form-label">{{ _('Úroveň vzdelávania') }}</label>
+      <select class="form-select" name="level" id="levelSelect" required>
+        <option value="">{{ _('-- Vyber --') }}</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if category.id == level|int %}selected{% endif %}>{{ category.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+
+    <div class="mb-3">
+      <label for="material_type" class="form-label">{{ _('Typ materiálu') }}</label>
+      <select class="form-select" id="material_type" name="material_type" required>
+        <option value="">{{ _('-- Vyber --') }}</option>
+        <option value="Poznámky" {% if material_type == 'Poznámky' %}selected{% endif %}>{{ _('Poznámky') }}</option>
+        <option value="Prezentácia" {% if material_type == 'Prezentácia' %}selected{% endif %}>{{ _('Prezentácia') }}</option>
+        <option value="Test" {% if material_type == 'Test' %}selected{% endif %}>{{ _('Test') }}</option>
+        <option value="Otázky a odpovede" {% if material_type == 'Otázky a odpovede' %}selected{% endif %}>{{ _('Otázky a odpovede') }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="material-focus" class="form-label">{{ _('Zameranie') }}</label>
+      <select class="form-select" id="material-focus" name="focus_id">
+        <option value="">{{ _('Zameranie: všetko') }}</option>
+        {% for focus in focuses %}
+          <option value="{{ focus.id }}">{{ focus.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="material-grade" class="form-label">{{ _('Ročník') }}</label>
+      <select class="form-select" id="material-grade" name="grade_id">
+        <option value="">{{ _('Ročník: všetko') }}</option>
+        {% for grade in grades %}
+          <option value="{{ grade.id }}">{{ grade.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div id="test-options" style="display: none;">
+      <div class="mb-3">
+        <label class="form-label">{{ _('Počet výberových otázok (A–D)') }}</label>
+        <input type="number" name="num_mcq" class="form-control" value="5" min="0" max="20">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">{{ _('Počet otvorených otázok') }}</label>
+        <input type="number" name="num_open" class="form-control" value="2" min="0" max="20">
+      </div>
+    </div>
+
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary">✨ {{ _('Generovať') }}</button>
+    </div>
+  </form>
+
+  {% if generated %}
+
+  <div id="generatedMaterial" class="mt-5">
+    <h4 class="text-center mb-4">✏️ {{ _('Uprav a ulož generovaný materiál') }}</h4>
+
+    <form method="POST" action="{{ url_for('materials.add_ai_material') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="material_type" value="{{ material_type }}">
+      <input type="hidden" name="content" id="hiddenContent">
+
+      <div class="mb-3">
+        <label class="form-label">{{ _('Názov') }}</label>
+        <input type="text" class="form-control" name="title" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{ _('Popis') }}</label>
+        <textarea class="form-control" name="description" rows="2"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{ _('Kategória') }}</label>
+        <select class="form-select" name="category_id" required>
+          {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="material-grade" class="form-label">{{ _('Ročník') }}</label>
+        <select class="form-select" id="material-grade" name="grade_id">
+          <option value="">{{ _('Ročník: všetko') }}</option>
+          {% for grade in grades %}
+            <option value="{{ grade.id }}">{{ grade.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="material-focus" class="form-label">{{ _('Zameranie') }}</label>
+        <select class="form-select" id="material-focus" name="focus_id">
+          <option value="">{{ _('Zameranie: všetko') }}</option>
+          {% for focus in focuses %}
+            <option value="{{ focus.id }}">{{ focus.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div id="test-options" style="display: none;">
+        <div class="mb-3">
+          <label class="form-label">{{ _('Počet výberových otázok (A–D)') }}</label>
+          <input type="number" name="num_mcq" class="form-control" value="5" min="0" max="20">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{{ _('Počet otvorených otázok') }}</label>
+          <input type="number" name="num_open" class="form-control" value="2" min="0" max="20">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">{{ _('Obsah') }}</label>
+        <div id="editor" style="height: 300px; border: 1px solid #ccc; padding: 1rem;">
+          {{ generated|safe }}
+        </div>
+      </div>
+
+      <div class="text-end d-flex flex-wrap gap-2 justify-content-end">
+        <button type="submit" class="btn btn-success">{{ _('💾 Zverejniť materiál') }}</button>
+        <button type="button" class="btn btn-primary" id="downloadPdfBtn">{{ _('📥 Stiahnuť materiál') }}</button>
+        <button type="button" class="btn btn-danger" id="discardBtn">{{ _('🚫 Nezverejňovať') }}</button>
+      </div>
+
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const materialTypeSelect = document.getElementById("material_type");
+  const testOptions = document.getElementById("test-options");
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+  materialTypeSelect.addEventListener("change", function () {
+    if (this.value === "Test") {
+      testOptions.style.display = "block";
+    } else {
+      testOptions.style.display = "none";
+    }
+  });
+
+  if (materialTypeSelect.value === "Test") {
+    testOptions.style.display = "block";
+  }
+
+
+  const editor = new Quill("#editor", { theme: "snow" });
+
+  const formSave = document.querySelector("form[action='{{ url_for('materials.add_ai_material') }}']");
+  formSave.addEventListener("submit", function () {
+    document.getElementById("hiddenContent").value = editor.root.innerHTML;
+  });
+
+
+  document.getElementById("downloadPdfBtn").addEventListener("click", async function () {
+    const content = editor.root.innerHTML;
+    const title = document.querySelector("input[name='title']").value || "material";
+    const materialType = document.querySelector("input[name='material_type']").value;
+
+    const response = await fetch("{{ url_for('ai.download_material') }}", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken
+      },
+      body: JSON.stringify({ title, content, material_type: materialType })
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const fileExt = materialType === "Prezentácia" ? "pptx" : "pdf";
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${title}.${fileExt}`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    } else {
+      const errData = await response.json();
+      alert(errData.error || "{{ _('⚠️ Nepodarilo sa stiahnuť súbor.') }}");
+    }
+  });
+
+  document.getElementById("discardBtn").addEventListener("click", function () {
+    document.getElementById("generatedMaterial")?.remove();
+    document.querySelector("form[action='{{ url_for('ai.generate') }}']")?.reset();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+{% endblock %}

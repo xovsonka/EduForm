@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="{{ get_locale() }}">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{{ _('EduForum') }}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <!-- Prekladové správy pre JavaScript -->
+  <script>
+    const MESSAGES = {
+      "fill_fields": "{{ _('Prosím vyplň aspoň názov a nahraj súbor.') }}",
+      "load_error":   "{{ _('⚠️ Nepodarilo sa načítať materiály.') }}",
+      "select_required": "{{ _('Vyberte položku zo zoznamu.') }}" 
+    };
+    const FILL_FIELD_MSG      = "{{ _('Vyplňte toto pole.') }}";
+    const EMAIL_FORMAT_MSG    = "{{ _('Zadajte platný e-mail.') }}";
+    
+  </script>
+
+  <!-- Vlastná override HTML5 validation -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document
+        .querySelectorAll("input.form-control[required], textarea.form-control[required], select.form-select[required]")
+        .forEach(el => {
+          el.addEventListener("invalid", e => {
+            e.preventDefault();
+  
+            const value = el.value;
+  
+            if (el.validity.valueMissing) {
+              if (el.tagName.toLowerCase() === "select") {
+                el.setCustomValidity(MESSAGES.select_required);
+              } else {
+                el.setCustomValidity(FILL_FIELD_MSG);
+              }
+            } else if (el.type === "email" && el.validity.typeMismatch) {
+              if (!value.includes("@")) {
+                el.setCustomValidity("{{ _('Uveďte v e-mailovej adrese znak @.')}}");
+              } else {
+                el.setCustomValidity(EMAIL_FORMAT_MSG);
+              }
+            } else {
+              el.setCustomValidity("");
+            }
+  
+            el.reportValidity();
+          });
+  
+          el.addEventListener("input", e => {
+            el.setCustomValidity("");
+          });
+        });
+    });
+  </script>
+  
+    
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">{{ _('EduForum') }}</a>
+    
+    <!-- Hamburger button pre malé obrazovky -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Tu začína collapsable obsah -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle position-relative" href="#" id="notificationDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            🔔
+            {% if notifications|length > 0 %}
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ notifications|length }}
+                <span class="visually-hidden">neprečítané upozornenia</span>
+              </span>
+            {% endif %}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+            {% if notifications %}
+              {% for note in notifications %}
+                <li>
+                  <a class="dropdown-item text-wrap small" href="#">
+                    {{ note.message }}<br>
+                    <small class="text-muted">{{ note.created_at.strftime('%d.%m.%Y %H:%M') }}</small>
+                  </a>
+                </li>
+              {% endfor %}
+            {% else %}
+              <li><span class="dropdown-item text-muted">{{ _('Žiadne nové upozornenia.') }}</span></li>
+            {% endif %}
+          </ul>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            🌐 {{ _('Jazyk') }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="langDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('change_language', lang_code='sk') }}">{{ _('Slovensky') }}</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('change_language', lang_code='en') }}">{{ _('English') }}</a></li>
+          </ul>
+        </li>
+
+        {% if session.username %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'problems.problems' %}active{% endif %}" href="{{ url_for('problems.problems') }}">
+              {{ _('Problémy') }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'materials.materials' %}active{% endif %}" href="{{ url_for('materials.materials') }}">
+              {{ _('Materiály') }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'ai.generate' %}active{% endif %}" href="{{ url_for('ai.generate') }}">
+              {{ _('AI Materiály') }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login.logout') }}">{{ _('Odhlásiť sa') }}</a>
+          </li>
+        {% endif %}
+
+      </ul>
+    </div> <!-- Koniec collapsable časti -->
+  </div>
+</nav>
+
+<!-- Flash správy -->
+<div class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055; width: 90%; max-width: 500px;">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show auto-hide-alert shadow" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ _('Zavrieť') }}"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- Hlavný obsah stránky -->
+{% block content %}{% endblock %}
+
+<!-- Footer -->
+<footer class="text-center mt-5 mb-4 text-muted border-top pt-3">
+  <div>
+    &copy; 2025 <strong>{{ _('EduForum') }}</strong> | {{ _('Vytvorené s ❤️ pre školstvo') }}
+  </div>
+  <div class="mt-1">
+    <a href="{{ url_for('about') }}" class="text-decoration-none small">{{ _('O projekte EduForum') }}</a>
+  </div>
+
+  {% if session.username %}
+    <div class="mt-2 small">{{ _('Prihlásený ako') }} <strong>{{ session.username }}</strong></div>
+  {% endif %}
+</footer>
+
+
+<script>
+  // Auto-hide flash messages after 4 seconds
+  document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".auto-hide-alert");
+    alerts.forEach(function (alert) {
+      setTimeout(function () {
+        alert.classList.remove("show");
+        alert.classList.add("fade");
+      }, 2000); // 4000 ms = 4 sekundy
+    });
+  });
+</script>
+
+<style>
+  .navbar-nav .nav-link {
+    font-weight: 500;
+    color: #ffffff ;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    transition: color 0.3s ease;
+  }
+
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+    color: #ffc107; /* zlatá pri hoveri aj aktívnom odkaze */
+    text-decoration: underline;
+  }
+
+  .bg-purple {
+    background-color: #6f42c1;
+  }
+  .material-card {
+  background: linear-gradient(135deg, #ffffff, #f1f3f5); /* jemný gradient pre hĺbku */
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
+}
+
+.material-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.material-card .card-body {
+  padding: 1.25rem;
+}
+
+.material-card .card-footer {
+  background-color: transparent;
+  border-top: none;
+}
+
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".auto-hide-alert");
+    alerts.forEach(function (alert) {
+      setTimeout(function () {
+        alert.classList.remove("show");
+        alert.classList.add("fade");
+      }, 2000); // 4 sekundy
+    });
+
+    const addForm = document.querySelector('form[action*="add"]');
+    const searchForm = document.querySelector('#search-form');
+    const materialsContainer = document.querySelector('#materials-list');
+    let filtered = false;
+  
+    if (addForm) {
+      addForm.addEventListener("submit", function (e) {
+        const title = document.getElementById("material-nazov").value.trim();
+        const fileInput = document.getElementById("material-subor");
+        if (!title) {
+          e.preventDefault();
+          alert(MESSAGES.fill_fields);
+        }
+      });
+    }
+  
+    if (searchForm && materialsContainer) {
+      searchForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        const formData = new FormData(searchForm);
+        const params = new URLSearchParams(formData).toString();
+        const queryURL = `/materials/filter?${params}`;
+        const y = window.scrollY;
+  
+        fetch(queryURL)
+          .then(response => {
+            if (!response.ok) throw new Error("{{ _('Server error')}}");
+            return response.text();
+          })
+          .then(html => {
+            materialsContainer.innerHTML = html;
+            window.scrollTo(0, y);
+  
+            for (const [key, value] of new URLSearchParams(params)) {
+              const el = searchForm.elements[key];
+              if (el) el.value = value;
+            }
+  
+            history.pushState(null, "", `/materials?${params}`);
+            filtered = true;
+          })
+          .catch(err => {
+            console.error("{{ _('AJAX chyba:')}}", err);
+            alert(MESSAGES.load_error);
+          });
+      });
+  
+      window.addEventListener("popstate", () => {
+        location.href = location.href;
+      });
+    }
+  });
+</script>
+
+<script>
+/* materials.js ----------------------------------------------------------- */
+/* --------------------------------------------------------------
+   materials.js – AJAX načítanie a vyhľadávanie materiálov
+   -------------------------------------------------------------- */
+   (function () {
+  const run = () => {
+    const list = document.getElementById('materials-list');
+    const form = document.getElementById('search-form');
+    if (!list || !form) return;
+
+    let currentQuery    = '';
+    let currentType     = '';
+    let currentCategory = '';
+    let currentFocus    = '';
+    let currentGrade    = '';
+    let onlyMine        = '';
+    let nextPage        = 2;
+
+    async function loadMaterials(page = 1, q = '', t = '', c = '', f = '', g = '', mine = '') {
+      const params = new URLSearchParams({ page });
+
+      if (q) params.append('query', q);
+      if (t) params.append('type', t);
+      if (c) params.append('category', c);
+      if (f) params.append('focus', f);
+      if (g) params.append('grade', g);
+      if (mine === '1') params.append('only_mine', '1');
+
+      const res = await fetch(`/materials/filter?${params}`, {
+        headers: { Accept: 'application/json' }
+      });
+      if (!res.ok) throw new Error('Chyba pri načítaní materiálov');
+      return res.json(); // { html, has_more }
+    }
+
+    const renderInitial = html => (list.innerHTML = html);
+    const appendPage    = html => list.insertAdjacentHTML('beforeend', html);
+
+    function setupLoadMore() {
+      document.getElementById('load-more-container')?.remove();
+
+      const wrap = document.createElement('div');
+      wrap.id = 'load-more-container';
+      wrap.className = 'd-flex justify-content-center mt-4';
+
+      const btn = document.createElement('button');
+      btn.id = 'load-more';
+      btn.type = 'button';
+      btn.className = 'btn btn-outline-secondary';
+      btn.textContent = '{{ _("Načítať ďalšie") }}';
+      wrap.appendChild(btn);
+      list.after(wrap);
+
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        btn.textContent = '{{ _("Načítavam…") }}';
+        try {
+          const { html, has_more } = await loadMaterials(
+            nextPage, currentQuery, currentType, currentCategory, currentFocus, currentGrade, onlyMine
+          );
+          appendPage(html);
+          if (has_more) {
+            nextPage++;
+            btn.disabled = false;
+            btn.textContent = '{{ _("Načítať ďalšie") }}';
+          } else {
+            wrap.remove();
+          }
+        } catch (err) {
+          console.error(err);
+          btn.disabled = false;
+          btn.textContent = '{{ _("Chyba") }}';
+        }
+      });
+    }
+
+    const handleSearch = async e => {
+      e?.preventDefault();
+      currentQuery    = form.query.value.trim();
+      currentType     = form.type.value;
+      currentCategory = form.category.value;
+      currentFocus    = form.focus.value;
+      currentGrade    = form.grade.value;
+      onlyMine        = form.only_mine?.checked ? '1' : '';
+      nextPage        = 2;
+
+      try {
+        const { html, has_more } = await loadMaterials(
+          1, currentQuery, currentType, currentCategory, currentFocus, currentGrade, onlyMine
+        );
+        renderInitial(html);
+        if (has_more) setupLoadMore();
+        else document.getElementById('load-more-container')?.remove();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    (async () => {
+      try {
+        onlyMine = form.only_mine?.checked ? '1' : '';
+        const { html, has_more } = await loadMaterials(
+          1, '', '', '', '', '', onlyMine
+        );
+        renderInitial(html);
+        if (has_more) setupLoadMore();
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+
+    form.addEventListener('submit', handleSearch);
+    document.getElementById('search-btn')?.addEventListener('click', handleSearch);
+  };
+
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  else
+    run();
+})();
+
+
+</script>
+
+<script>
+  /* problems.js – AJAX načítanie a vyhľadávanie problémov */
+  (function () {
+  const run = () => {
+    const list = document.getElementById('problems-list');
+    const form = document.getElementById('search-form');
+    if (!list || !form) return;
+
+    let currentQuery = '';
+    let currentCategory = '';
+    let onlyMine = '';
+    let nextPage = 2;
+
+    async function loadProblems(page = 1, q = '', c = '', mine = '') {
+      const params = new URLSearchParams({ page });
+
+      if (mine === '1') params.append('only_mine', '1');
+      if (q) params.append('query', q);
+      if (c) params.append('category', c);
+
+      const res = await fetch(`/problems/filter?${params}`, {
+        headers: { Accept: 'application/json' }
+      });
+      if (!res.ok) throw new Error('{{ _("Chyba pri načítaní problémov")}}');
+      return res.json();
+    }
+
+    const renderInitial = html => (list.innerHTML = html);
+    const appendPage = html => list.insertAdjacentHTML('beforeend', html);
+
+    function setupLoadMore() {
+      document.getElementById('load-more-container')?.remove();
+
+      const wrap = document.createElement('div');
+      wrap.id = 'load-more-container';
+      wrap.className = 'd-flex justify-content-center mt-4';
+
+      const btn = document.createElement('button');
+      btn.id = 'load-more';
+      btn.type = 'button';
+      btn.className = 'btn btn-outline-secondary';
+      btn.textContent = '{{ _("Načítať ďalšie") }}';
+      wrap.appendChild(btn);
+      list.after(wrap);
+
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        btn.textContent = '{{ _("Načítavam…") }}';
+        try {
+          const { html, has_more } = await loadProblems(
+            nextPage, currentQuery, currentCategory, onlyMine
+          );
+          appendPage(html);
+          if (has_more) {
+            nextPage++;
+            btn.disabled = false;
+            btn.textContent = '{{ _("Načítať ďalšie") }}';
+          } else {
+            wrap.remove();
+          }
+        } catch (err) {
+          console.error(err);
+          btn.disabled = false;
+          btn.textContent = '{{ _("Chyba") }}';
+        }
+      });
+    }
+
+    const handleSearch = async e => {
+      e?.preventDefault();
+      currentQuery = form.query.value.trim();
+      currentCategory = form['search-category'].value;
+      onlyMine = form.only_mine?.checked ? '1' : '';
+      nextPage = 2;
+
+      try {
+        const { html, has_more } = await loadProblems(1, currentQuery, currentCategory, onlyMine);
+        renderInitial(html);
+        if (has_more) setupLoadMore();
+        else document.getElementById('load-more-container')?.remove();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    (async () => {
+      try {
+        onlyMine = form.only_mine?.checked ? '1' : '';
+        const { html, has_more } = await loadProblems(1, '', '', onlyMine);
+        renderInitial(html);
+        if (has_more) setupLoadMore();
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+
+    form.addEventListener('submit', handleSearch);
+    document.getElementById('search-btn')?.addEventListener('click', handleSearch);
+  };
+
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  else
+    run();
+})();
+
+
+</script>
+
+<script>
+  /* globálny handler, zbehne pre každý nový/otvorený formulár */
+document.addEventListener('change',  handleFile);
+document.addEventListener('click',   handleRemove);
+
+function handleFile (e) {
+  if (!e.target.matches('input[type=file][name="solution_file"]')) return;
+
+  const wrap   = e.target.closest('.problem-upload-wrapper');
+  const nameEl = wrap.querySelector('[data-fname]');
+  const errEl  = wrap.querySelector('[data-ferr]');
+  const rmBtn  = wrap.querySelector('[data-remove]');
+  const file   = e.target.files[0];
+  const NONE   = nameEl.dataset.none || '{{ _("Žiadny súbor nevybraný")}}';
+
+  errEl.style.display = 'none';
+
+  if (!file) {
+    nameEl.textContent = NONE;
+    rmBtn.style.display = 'none';
+    return;
+  }
+
+  if (!file.name.toLowerCase().endsWith('.pdf')) {
+    errEl.textContent   = '{{ _("Nepodporovaný formát. Používajte len PDF.")}}';
+    errEl.style.display = 'block';
+    e.target.value      = '';
+    nameEl.textContent  = NONE;
+    rmBtn.style.display = 'none';
+    return;
+  }
+
+  nameEl.textContent   = file.name;
+  rmBtn.style.display  = 'inline-block';
+}
+
+function handleRemove (e) {
+  if (!e.target.matches('.file-remove')) return;
+  const wrap  = e.target.closest('.problem-upload-wrapper');
+  const input = wrap.querySelector('input[type=file]');
+  const nameEl= wrap.querySelector('[data-fname]');
+  const errEl = wrap.querySelector('[data-ferr]');
+  const NONE  = nameEl.dataset.none || '{{ _("Žiadny súbor nevybraný")}}';
+
+  input.value       = '';
+  nameEl.textContent= NONE;
+  errEl.style.display = 'none';
+  e.target.style.display = 'none';
+}
+
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const bell = document.getElementById('notificationDropdown');
+    if (!bell) return;
+
+    bell.addEventListener('click', () => {
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+      fetch("{{ url_for('notifications.mark_notifications_read') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken
+        },
+        body: "{}"
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const badge = bell.querySelector('.badge');
+          if (badge) {
+            badge.remove();  // alebo badge.style.display = "none";
+          }
+        } else {
+          console.error("Nepodarilo sa označiť notifikácie ako prečítané.");
+        }
+      })
+      .catch(err => console.error("Chyba pri označovaní:", err));
+    });
+  });
+</script>
+

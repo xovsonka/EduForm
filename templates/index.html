@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Domov | EduForum{% endblock %}
+
+{% block content %}
+  <div class="text-center py-5">
+    <h1 class="display-4 fw-bold mb-3">{{ _('Vitaj na') }} <span class="text-primary">EduForum</span></h1>
+    <p class="lead text-muted mb-4">
+      {{ _('Zdieľaj problémy spojené s digitalizáciou vo vzdelávaní a pomáhaj ostatným s učebnými materiálmi.') }}
+    </p>
+    
+    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+      <a class="btn btn-outline-danger btn-lg px-4" href="{{ url_for('problems.problems') }}">
+        {{ _('Prejsť na problémy') }}
+      </a>
+      <a class="btn btn-outline-success btn-lg px-4" href="{{ url_for('materials.materials') }}">
+        {{ _('Prejsť na materiály') }}
+      </a>
+      <a class="btn btn-outline-primary btn-lg px-4" href="{{ url_for('ai.generate') }}">
+        {{ _('Vygenerovať materiál') }}
+      </a>
+    </div>
+  </div>
+  <style>
+    @media (max-width: 767.98px) {
+      .btn {
+        max-width: 80%;
+        width: 100%;           
+        font-size: 1.1rem;      
+        padding: 0.75rem 1rem;  
+      }
+    }
+    h1.display-4 {
+      font-size: 2.5rem; 
+    }
+    @media (max-width: 575.98px) {
+      h1.display-4 {
+        font-size: 2rem;
+      }
+    }
+    </style>
+{% endblock %}
+
+  

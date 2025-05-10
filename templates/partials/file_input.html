@@ -1,0 +1,94 @@
+<div class="file-upload-wrapper d-flex align-items-center gap-3 mt-2">
+    <label for="material-subor" class="custom-file-upload btn btn-primary">
+      📎 {{ _('Vybrať súbor') }}
+    </label>
+    <input
+      id="material-subor"
+      type="file"
+      name="file"
+      accept=".pdf,.pptx"
+      style="display: none;"
+    />
+    <div class="file-info d-flex align-items-center gap-2">
+      <span id="file-name" class="file-name">{{ _('Žiadny súbor nevybraný') }}</span>
+      <button type="button" id="file-remove" class="btn btn-sm btn-danger" style="display: none;">❌</button>
+    </div>
+    <div id="file-error" class="invalid-feedback" style="display:none;"></div>
+  </div>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const input         = document.getElementById("material-subor");
+    const fileName      = document.getElementById("file-name");
+    const fileError     = document.getElementById("file-error");
+    const fileRemoveBtn = document.getElementById("file-remove");
+    const noFileText    = "{{ _('Žiadny súbor nevybraný') }}";
+    const allowedExts   = ['pdf', 'pptx'];
+  
+    input.addEventListener("change", () => {
+      fileError.style.display = "none";
+      const file = input.files[0];
+  
+      if (file) {
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (!allowedExts.includes(ext)) {
+          fileError.textContent = "{{ _('Nepodporovaný formát. Používajte len PDF alebo PPTX.') }}";
+          fileError.style.display = "block";
+          fileName.textContent = noFileText;
+          input.value = "";
+          fileRemoveBtn.style.display = "none";
+        } else {
+          fileName.textContent = file.name;
+          fileRemoveBtn.style.display = "inline-block";
+        }
+      } else {
+        fileName.textContent = noFileText;
+        fileRemoveBtn.style.display = "none";
+      }
+    });
+  
+    fileRemoveBtn.addEventListener("click", () => {
+      input.value = "";
+      fileName.textContent = noFileText;
+      fileRemoveBtn.style.display = "none";
+      fileError.style.display = "none";
+    });
+  
+    const form = input.closest("form");
+    if (form) {
+      form.addEventListener("submit", () => {
+        fileError.style.display = "none";
+      });
+    }
+  });
+  </script>
+  
+  <style>
+  .file-name {
+    font-style: italic;
+    color: #555;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .file-info {
+    max-width: 300px;
+  }
+  
+  @media (max-width: 576px) {
+    .file-upload-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+  }
+  </style>
+  

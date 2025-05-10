@@ -1,0 +1,171 @@
+  {% extends "base.html" %}
+
+  {% block title %}{{ _('Materiály') }} | EduForum{% endblock %}
+
+  {% block content %}
+  <div class="col-lg-10 mx-auto">
+
+    <!-- Pridanie materiálu -->
+    <div class="card shadow-sm mb-5">
+      <div class="card-body">
+        <h2 class="mb-4 text-primary">📝 {{ _('Pridať učebný materiál') }}</h2>
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('materials.add_material') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="mb-3">
+            <label for="material-nazov" class="form-label">{{ _('Názov') }}</label>
+            <input type="text" class="form-control" id="material-nazov" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="material-popis" class="form-label">{{ _('Popis') }}</label>
+            <textarea class="form-control" id="material-popis" name="description" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="material-kategoria" class="form-label">{{ _('Kategória') }}</label>
+            <select class="form-select" id="material-kategoria" name="category_id" required>
+                <option value="">{{ _('Kategória: všetko') }}</option>
+                {% for cat in categories %}
+                  <option value="{{ cat.id }}" data-key="{{ cat.key }}"
+                    {% if request.args.get('category') == cat.id|string %}selected{% endif %}>
+                    {{ cat.label }}
+                  </option>
+                {% endfor %}
+              </select>    
+          </div>
+          <div class="mb-3">
+            <label for="material-subor" class="form-label">{{ _('Súbor') }}</label>
+            {% include 'partials/file_input.html' %}
+          </div>
+          <!-- Výber zamerania -->
+      <div class="mb-3">
+        <label for="material-focus" class="form-label">{{ _('Zameranie') }}</label>
+        <select class="form-select" id="material-focus" name="focus_id">
+          <option value="">{{ _('Zameranie: všetko') }}</option>
+          {% for focus in focuses %}
+            <option value="{{ focus.id }}">{{ focus.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Výber ročníka -->
+      <div class="mb-3">
+        <label for="material-grade" class="form-label">{{ _('Ročník') }}</label>
+        <select class="form-select" id="material-grade" name="grade_id">
+          <option value="">{{ _('Ročník: všetko') }}</option>
+          {% for grade in grades %}
+            <option value="{{ grade.id }}">{{ grade.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+          <div class="text-end">
+            <button type="submit" class="btn btn-success">{{ _('Nahrať') }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Vyhľadávanie -->
+    <div class="card shadow-sm mb-5">
+      <div class="card-body">
+        <h4 class="mb-3 text-secondary">🔍 {{ _('Vyhľadávanie materiálov') }}</h4>
+        <form id="search-form"  class="row g-3" method="GET" action="" onsubmit="return false;">
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="query" placeholder="{{ _('Názov, predmet, kľúčové slovo') }}"
+                  value="{{ request.args.get('query', '') }}">
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" name="type">
+              <option value="">{{ _('Typ: všetko') }}</option>
+              <option value="pdf" {% if request.args.get('type') == 'pdf' %}selected{% endif %}>PDF</option>
+              <option value="pptx" {% if request.args.get('type') == 'pptx' %}selected{% endif %}>PPTX</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" name="category" id="categorySelectSave" required>
+              <option value="">{{ _('Kategória: všetko') }}</option>
+              {% for cat in categories %}
+                <option value="{{ cat.id }}" data-key="{{ cat.key }}"
+                  {% if request.args.get('category') == cat.id|string %}selected{% endif %}>
+                  {{ cat.label }}
+                </option>
+              {% endfor %}
+            </select>          
+          </div>
+          <!-- NOVÉ: Focus filter -->
+          <div class="col-md-2">
+            <select class="form-select" name="focus">
+              <option value="">{{ _('Zameranie: všetko') }}</option>
+              {% for focus in focuses %}
+                <option value="{{ focus.id }}" {% if request.args.get('focus') == focus.id|string %}selected{% endif %}>
+                  {{ focus.label }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- NOVÉ: Grade filter -->
+          <div class="col-md-2">
+            <select class="form-select" name="grade">
+              <option value="">{{ _('Ročník: všetko') }}</option>
+              {% for grade in grades %}
+                <option value="{{ grade.id }}" {% if request.args.get('grade') == grade.id|string %}selected{% endif %}>
+                  {{ grade.label }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+                    <!-- Checkbox: iba moje materiály -->
+          <div class="col-md-4">
+            <div class="form-check mt-2">
+              <input class="form-check-input" type="checkbox" name="only_mine" id="only-mine"
+                    {% if request.args.get('only_mine') %}checked{% endif %}>
+              <label class="form-check-label" for="only-mine">
+                {{ _('Zobraziť len moje materiály') }}
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12 text-end">
+            <button id="search-btn"
+                    type="button"
+                    class="btn btn-success">
+              {{ _('Hľadať') }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Výpis materiálov -->
+    <div class="card shadow-sm mb-5">
+      <div class="card-body">
+        <h4 class="mb-3">📚 {{ _('Zoznam materiálov') }}</h4>
+
+        <div id="materials-list"
+            class="row row-cols-1 row-cols-md-2 g-4">
+          {% include "partials/_materials_items.html" %}
+        </div>
+
+        <!-- Load more tlačidlo -->
+        <div class="d-flex justify-content-center mt-4"
+            id="load-more-container"
+            {% if materials|length < 6 %}style="display:none;"{% endif %}>
+            <button id="load-more"
+            type="button"
+            class="btn btn-outline-secondary"
+            data-query="{{ request.args.get('query','') }}"
+            data-type="{{ request.args.get('type','') }}"
+            data-category="{{ request.args.get('category','') }}"
+            data-focus="{{ request.args.get('focus','') }}"
+            data-grade="{{ request.args.get('grade','') }}"
+            data-page="2">
+      {{ _('Načítať ďalšie') }}
+    </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block scripts %}
+  {% endblock %}

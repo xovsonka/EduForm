@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{_('Registrácia | EduForum')}} {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h2 class="mb-4 text-center">{{_('Registrácia')}}</h2>
+    <form method="POST" action="{{ url_for('login.register') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="mb-3">
+        <label for="username" class="form-label">{{_('Používateľské meno')}}</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">{{_('Email')}}</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">{{_('Heslo')}}</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <div class="mb-3">
+        <label for="confirm_password" class="form-label">{{_('Potvrď heslo')}}</label>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+      </div>
+      <p class="text-center mt-3">
+        <a href="{{ url_for('login.login') }}">{{_('Už mám účet')}}</a>
+      </p>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">{{_('Registrovať sa')}}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

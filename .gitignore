@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Compiled files
+*.so
+*.dll
+*.exe
+*.o
+*.a
+
+# Unit test / coverage
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+
+# MyPy / Pyright
+.mypy_cache/
+.pyright/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Env and secrets
+*.env
+.env.*
+
+# SQLite (if used)
+*.sqlite3
+*.db
+
+# Other
+*.bak
+*.swp

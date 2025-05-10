@@ -1,0 +1,682 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-04-25 19:28+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ai.py:47
+msgid ""
+"⚠️ OpenAI API je preťažené alebo odpovedá príliš dlho. Skúste znova "
+"neskôr."
+msgstr ""
+
+#: ai.py:50
+msgid "⚠️ AI odpovedalo chybou: "
+msgstr ""
+
+#: ai.py:53
+msgid "⚠️ Interná chyba AI: "
+msgstr ""
+
+#: ai.py:72
+msgid "študentov"
+msgstr ""
+
+#: ai.py:72
+msgid "students"
+msgstr ""
+
+#: ai.py:128
+msgid "⚠️ Neznámy typ materiálu."
+msgstr ""
+
+#: ai.py:132
+msgid "⚠️ AI nevrátilo žiadny výstup."
+msgstr ""
+
+#: ai.py:134
+msgid "⚠️ Výstup bol skrátený."
+msgstr ""
+
+#: ai.py:160
+msgid "✅ Materiál bol úspešne vygenerovaný."
+msgstr ""
+
+#: ai.py:184
+msgid "Názov a obsah sú povinné."
+msgstr ""
+
+#: ai.py:216
+msgid "Chyba generovania: "
+msgstr ""
+
+#: login.py:26
+msgid "Úspešné prihlásenie!"
+msgstr ""
+
+#: login.py:29
+msgid "Nesprávne prihlasovacie údaje."
+msgstr ""
+
+#: login.py:37
+msgid "Boli ste odhlásený."
+msgstr ""
+
+#: login.py:50 login.py:88
+msgid "Heslá sa nezhodujú."
+msgstr ""
+
+#: login.py:59
+msgid "Používateľské meno alebo email už existuje."
+msgstr ""
+
+#: login.py:70
+msgid "Registrácia prebehla úspešne. Môžete sa prihlásiť."
+msgstr ""
+
+#: login.py:84
+msgid "Vyplňte všetky polia."
+msgstr ""
+
+#: login.py:98
+msgid "E-mail nie je registrovaný."
+msgstr ""
+
+#: login.py:111
+msgid "Heslo bolo úspešne zmenené. Môžete sa prihlásiť."
+msgstr ""
+
+#: templates/about.html:3 templates/about.html:7
+msgid "O projekte"
+msgstr ""
+
+#: templates/about.html:3 templates/about.html:7 templates/base.html:5
+#: templates/base.html:62 templates/base.html:120
+msgid "EduForum"
+msgstr ""
+
+#: templates/about.html:9
+msgid ""
+"EduForum je webová aplikácia vytvorená ako súčasť bakalárskej práce "
+"študenta Fakulty riadenia a informatiky na Žilinskej univerzite. Jej "
+"cieľom je zjednodušiť zdieľanie problémov spojených s digitalizáciou vo "
+"vzdelávaní a uľahčiť výmenu učebných materiálov medzi pedagógmi."
+msgstr ""
+
+#: templates/about.html:13
+msgid ""
+"Projekt bol navrhnutý s dôrazom na jednoduchosť, prehľadnosť a praktické "
+"využitie v školskom prostredí. Aplikácia využíva technológie ako"
+msgstr ""
+
+#: templates/about.html:13
+msgid "a"
+msgstr ""
+
+#: templates/about.html:13
+msgid ""
+"a bola vyvíjaná s ohľadom na potreby učiteľov a zdieľanie vzdelávacieho "
+"obsahu."
+msgstr ""
+
+#: templates/about.html:17
+msgid ""
+"Tento projekt slúži ako ukážka použitia moderných webových technológií "
+"pre reálne riešenia v oblasti vzdelávania."
+msgstr ""
+
+#: templates/ai_generate.html:3
+msgid "AI Materiály | EduForum"
+msgstr ""
+
+#: templates/ai_generate.html:7
+msgid "Generovanie študijných materiálov pomocou AI"
+msgstr ""
+
+#: templates/ai_generate.html:12
+msgid "Téma"
+msgstr ""
+
+#: templates/ai_generate.html:17
+msgid "Úroveň vzdelávania"
+msgstr ""
+
+#: templates/ai_generate.html:26
+msgid "Typ materiálu"
+msgstr ""
+
+#: templates/ai_generate.html:28
+msgid "-- Vyber --"
+msgstr ""
+
+#: templates/ai_generate.html:29
+msgid "Poznámky"
+msgstr ""
+
+#: templates/ai_generate.html:30
+msgid "Prezentácia"
+msgstr ""
+
+#: templates/ai_generate.html:31
+msgid "Test"
+msgstr ""
+
+#: templates/ai_generate.html:32
+msgid "Otázky a odpovede"
+msgstr ""
+
+#: templates/ai_generate.html:37
+msgid "Generovať"
+msgstr ""
+
+#: templates/ai_generate.html:44
+msgid "Uprav a ulož generovaný materiál"
+msgstr ""
+
+#: templates/ai_generate.html:48
+msgid "Názov"
+msgstr ""
+
+#: templates/ai_generate.html:53
+msgid "Popis"
+msgstr ""
+
+#: templates/ai_generate.html:58
+msgid "Kategória"
+msgstr ""
+
+#: templates/ai_generate.html:70
+msgid "Obsah"
+msgstr ""
+
+#: templates/ai_generate.html:77
+msgid "Zverejniť materiál"
+msgstr ""
+
+#: templates/ai_generate.html:78
+msgid "Stiahnuť materiál"
+msgstr ""
+
+#: templates/ai_generate.html:79
+msgid "Nezverejňovať"
+msgstr ""
+
+#: templates/ai_generate.html:115
+msgid "material"
+msgstr ""
+
+#: templates/ai_generate.html:134
+msgid "⚠️ Nepodarilo sa stiahnuť súbor."
+msgstr ""
+
+#: templates/base.html:14
+msgid "Prosím vyplň aspoň názov a nahraj súbor."
+msgstr ""
+
+#: templates/base.html:15
+msgid "⚠️ Nepodarilo sa načítať materiály."
+msgstr ""
+
+#: templates/base.html:17
+msgid "Vyplňte toto pole."
+msgstr ""
+
+#: templates/base.html:18
+msgid "Zadajte platný e-mail."
+msgstr ""
+
+#: templates/base.html:67
+msgid "Jazyk"
+msgstr ""
+
+#: templates/base.html:70
+msgid "Slovensky"
+msgstr ""
+
+#: templates/base.html:71
+msgid "English"
+msgstr ""
+
+#: templates/base.html:78
+msgid "Problémy"
+msgstr ""
+
+#: templates/base.html:83
+msgid "Materiály"
+msgstr ""
+
+#: templates/base.html:88
+msgid "AI Materiály"
+msgstr ""
+
+#: templates/base.html:92
+msgid "Odhlásiť sa"
+msgstr ""
+
+#: templates/base.html:107
+msgid "Zavrieť"
+msgstr ""
+
+#: templates/base.html:120
+msgid "Vytvorené s ❤️ pre školstvo"
+msgstr ""
+
+#: templates/base.html:123
+msgid "O projekte EduForum"
+msgstr ""
+
+#: templates/base.html:127
+msgid "Prihlásený ako"
+msgstr ""
+
+#: templates/forgot_password.html:3
+msgid "Zabudnuté heslo | EduForum"
+msgstr ""
+
+#: templates/forgot_password.html:8
+msgid "Obnova hesla"
+msgstr ""
+
+#: templates/forgot_password.html:11
+msgid "E-mailová adresa"
+msgstr ""
+
+#: templates/forgot_password.html:15 templates/login.html:15
+#: templates/register.html:19
+msgid "Heslo"
+msgstr ""
+
+#: templates/forgot_password.html:19
+msgid "Znova zadajte heslo"
+msgstr ""
+
+#: templates/forgot_password.html:23
+msgid "Odoslať inštrukcie"
+msgstr ""
+
+#: templates/forgot_password.html:27
+msgid "Späť na prihlásenie"
+msgstr ""
+
+#: templates/index.html:7
+msgid "Vitaj na"
+msgstr ""
+
+#: templates/index.html:9
+msgid ""
+"Zdieľaj problémy spojené s digitalizáciou vo vzdelávaní a pomáhaj "
+"ostatným s učebnými materiálmi."
+msgstr ""
+
+#: templates/index.html:13
+msgid "Prejsť na problémy"
+msgstr ""
+
+#: templates/index.html:16
+msgid "Prejsť na materiály"
+msgstr ""
+
+#: templates/index.html:19
+msgid "Vygenerovať materiál"
+msgstr ""
+
+#: templates/login.html:3
+msgid "Prihlásenie | EduForum"
+msgstr ""
+
+#: templates/login.html:8
+msgid "Prihlásenie"
+msgstr ""
+
+#: templates/login.html:11 templates/register.html:11
+msgid "Používateľské meno"
+msgstr ""
+
+#: templates/login.html:19
+msgid "Zabudnuté heslo?"
+msgstr ""
+
+#: templates/login.html:22
+msgid "Nemáte účet? Zaregistrujte sa"
+msgstr ""
+
+#: templates/login.html:25
+msgid "Prihlásiť sa"
+msgstr ""
+
+#: templates/register.html:3
+msgid "Registrácia | EduForum"
+msgstr ""
+
+#: templates/register.html:8
+msgid "Registrácia"
+msgstr ""
+
+#: templates/register.html:15
+msgid "Email"
+msgstr ""
+
+#: templates/register.html:23
+msgid "Potvrď heslo"
+msgstr ""
+
+#: templates/register.html:27
+msgid "Uz mam ucet"
+msgstr ""
+
+#: templates/register.html:30
+msgid "Registrovať sa"
+msgstr ""
+
+#: venv/Lib/site-packages/click/_termui_impl.py:556
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: venv/Lib/site-packages/click/_termui_impl.py:560
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1124
+msgid "Aborted!"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1349
+#: venv/Lib/site-packages/click/core.py:1379
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1396
+msgid "Options"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1422
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/core.py:1438
+#, python-brace-format
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1645
+msgid "Commands"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1677
+msgid "Missing command."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1755
+#, python-brace-format
+msgid "No such command {name!r}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2313
+msgid "Value must be an iterable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2334
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/core.py:2783
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2813
+msgid "(dynamic)"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2828
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2841
+msgid "required"
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:457
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:520
+msgid "Show the version and exit."
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:541
+msgid "Show this message and exit."
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:49
+#: venv/Lib/site-packages/click/exceptions.py:88
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:80
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:129
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:131
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:187
+msgid "Missing argument"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:189
+msgid "Missing option"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:191
+msgid "Missing parameter"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:193
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:200
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:220
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:232
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/exceptions.py:270
+msgid "unknown error"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:277
+#, python-brace-format
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/formatting.py:156
+msgid "Usage:"
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:233
+#, python-brace-format
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:415
+#, python-brace-format
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:476
+#, python-brace-format
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/shell_completion.py:326
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: venv/Lib/site-packages/click/shell_completion.py:333
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:267
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:299
+#, python-brace-format
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/types.py:393
+#, python-brace-format
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/types.py:415
+#, python-brace-format
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:471
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:612
+#, python-brace-format
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:636
+#, python-brace-format
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:826
+msgid "file"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:828
+msgid "directory"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:830
+msgid "path"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:881
+#, python-brace-format
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:890
+#, python-brace-format
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:898
+#, python-brace-format
+msgid "{name} {filename!r} is a directory."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:907
+#, python-brace-format
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:916
+#, python-brace-format
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:925
+#, python-brace-format
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:992
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+

@@ -1,0 +1,112 @@
+{% if problems %}
+  {% for problem in problems %}
+    <div class="col">
+      <div class="card h-100 material-card">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-bold text-danger">{{ problem.title }}</h5>
+          <p class="card-text text-muted">
+            {{ problem.description[:200] }}{% if problem.description|length > 200 %}...{% endif %}
+          </p>
+
+          <div class="mb-2">
+            <span class="badge bg-danger">{{ _('Problém') }}</span>
+            {% if problem.category_name == 'ZŠ' %}
+              <span class="badge bg-primary">{{ _('Základná škola') }}</span>
+            {% elif problem.category_name == 'SŠ' %}
+              <span class="badge bg-success">{{ _('Stredná škola') }}</span>
+            {% elif problem.category_name == 'VŠ' %}
+              <span class="badge bg-purple text-white">{{ _('Vysoká škola') }}</span>
+            {% elif problem.category_name %}
+              <span class="badge bg-secondary">{{ _(problem.category_name) }}</span>
+            {% endif %}
+          </div>
+
+          {% if problem.solutions %}
+            <div class="mt-2">
+              <h6 class="text-success">{{ _('Riešenia:') }}</h6>
+              <ul class="list-unstyled small ps-2">
+                {% for sol in problem.solutions %}
+                  <li class="mb-2 d-flex align-items-center">
+                    <a href="{{ url_for('static', filename=sol.file_path) }}" class="btn btn-sm btn-outline-success" target="_blank">
+                      📄 PDF
+                    </a>
+                    {% if sol.description %}
+                      <span class="ms-2">{{ sol.description }}</span>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% else %}
+            <p class="text-muted small">🔍 {{ _('Zatiaľ bez riešenia') }}</p>
+          {% endif %}
+
+          <!-- Vylepšené tlačidlo na otvorenie collapsible -->
+          <button class="add-solution-btn mt-3" 
+                  type="button" 
+                  data-bs-toggle="collapse"
+                  data-bs-target="#solution-form-{{ problem.id }}" 
+                  aria-expanded="false" 
+                  aria-controls="solution-form-{{ problem.id }}">
+            ➕ {{ _('Pridať riešenie') }}
+          </button>
+
+          <!-- Collapsible formulár -->
+          <div class="collapse mt-3" id="solution-form-{{ problem.id }}">
+            <form method="POST" action="{{ url_for('problems.add_solution') }}" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="problem_id" value="{{ problem.id }}">
+              <div class="mb-2">
+                <label class="form-label">{{ _('PDF súbor') }}</label>
+                {% set field_name = 'solution_file' %}
+                {% set suffix     = 'p-' ~ problem.id %}
+                {% include 'partials/problems_input.html' %}
+              </div>
+              <div class="mb-2">
+                <label class="form-label">{{ _('Popis riešenia') }}</label>
+                <textarea class="form-control form-control-sm" name="description" rows="2"></textarea>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-sm btn-success">{{ _('Odoslať riešenie') }}</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="col">
+    <div class="alert alert-info text-center" role="alert">
+      {{ _('Žiadne problémy neboli nájdené.') }}
+    </div>
+  </div>
+{% endif %}
+
+<style>
+  .add-solution-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    border: none;
+    border-radius: 0.375rem;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background 0.3s ease, transform 0.1s ease;
+  }
+  .add-solution-btn:hover,
+  .add-solution-btn:focus {
+    background: linear-gradient(135deg, #5a85e0 0%, #2a54c8 100%);
+    transform: translateY(-1px);
+    color: #fff;
+  }
+  .add-solution-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+</style>

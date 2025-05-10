@@ -1,0 +1,1124 @@
+# English translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-04-25 19:28+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+msgid "Nahrajte súbor."
+msgstr "Please upload a file."
+
+msgid "Prosím vyplň aspoň názov a nahraj súbor."
+msgstr "Please fill in the title and upload a file."
+
+#: ai.py:47
+msgid ""
+"⚠️ OpenAI API je preťažené alebo odpovedá príliš dlho. Skúste znova "
+"neskôr."
+msgstr ""
+"⚠️ The OpenAI API is overloaded or taking too long to respond. Please try"
+" again later."
+
+#: ai.py:50
+msgid "⚠️ AI odpovedalo chybou: "
+msgstr "⚠️ AI responded with an error: "
+
+#: ai.py:53
+msgid "⚠️ Interná chyba AI: "
+msgstr "⚠️ Internal AI error: "
+
+#: ai.py:72
+msgid "študentov"
+msgstr "students"
+
+#: ai.py:72
+#, fuzzy
+msgid "students"
+msgstr "students"
+
+#: ai.py:128
+msgid "⚠️ Neznámy typ materiálu."
+msgstr "⚠️ Unknown material type."
+
+#: ai.py:132
+msgid "⚠️ AI nevrátilo žiadny výstup."
+msgstr "⚠️ AI did not return any output."
+
+#: ai.py:134
+msgid "⚠️ Výstup bol skrátený."
+msgstr "⚠️ Output was truncated."
+
+#: ai.py:160
+msgid "✅ Materiál bol úspešne vygenerovaný."
+msgstr "✅ The material was successfully generated."
+
+#: ai.py:184
+msgid "Názov a obsah sú povinné."
+msgstr "Title and content are required."
+
+#: ai.py:216
+msgid "Chyba generovania: "
+msgstr "Generation error: "
+
+#: login.py:26
+msgid "Úspešné prihlásenie!"
+msgstr "Successful login!"
+
+#: login.py:29
+msgid "Nesprávne prihlasovacie údaje."
+msgstr "Incorrect login details!"
+
+#: login.py:37
+msgid "Boli ste odhlásený."
+msgstr "You have been logged out."
+
+#: login.py:50 login.py:88
+msgid "Heslá sa nezhodujú."
+msgstr "Passwords do not match."
+
+#: login.py:59
+msgid "Používateľské meno alebo email už existuje."
+msgstr "The username or email already exists."
+
+#: login.py:70
+msgid "Registrácia prebehla úspešne. Môžete sa prihlásiť."
+msgstr "Registration was successful. You can log in."
+
+#: login.py:84
+msgid "Vyplňte všetky polia."
+msgstr "Fill in all fields."
+
+#: login.py:98
+msgid "E-mail nie je registrovaný."
+msgstr "Email is not registered."
+
+#: login.py:111
+msgid "Heslo bolo úspešne zmenené. Môžete sa prihlásiť."
+msgstr "Your password has been successfully changed. You can log in."
+
+#: templates/about.html:3 templates/about.html:7
+msgid "O projekte"
+msgstr "About the project"
+
+#: templates/about.html:3 templates/about.html:7 templates/base.html:5
+#: templates/base.html:62 templates/base.html:120
+msgid "EduForum"
+msgstr "EduForum"
+
+#: templates/about.html:9
+msgid ""
+"EduForum je webová aplikácia vytvorená ako súčasť bakalárskej práce "
+"študenta Fakulty riadenia a informatiky na Žilinskej univerzite. Jej "
+"cieľom je zjednodušiť zdieľanie problémov spojených s digitalizáciou vo "
+"vzdelávaní a uľahčiť výmenu učebných materiálov medzi pedagógmi."
+msgstr ""
+"EduForm is a web application developed as a bachelor’s thesis by a "
+"student of the Faculty of Informatics and Information Technologies (FIIT)"
+" of the Slovak University of Technology in Bratislava. It serves as a "
+"tool to help schools tackle digitalization challenges by offering a "
+"simple, clear and practical platform for educators. Teachers can create, "
+"share and exchange their own teaching materials, streamlining "
+"collaboration and resource reuse."
+
+#: templates/about.html:13
+msgid ""
+"Projekt bol navrhnutý s dôrazom na jednoduchosť, prehľadnosť a praktické "
+"využitie v školskom prostredí. Aplikácia využíva technológie ako"
+msgstr ""
+"The project was designed with a focus on simplicity, clarity, and "
+"practical use in the school environment. The application uses "
+"technologies like"
+
+#: templates/about.html:13
+msgid "a"
+msgstr "and"
+
+#: templates/about.html:13
+msgid ""
+"a bola vyvíjaná s ohľadom na potreby učiteľov a zdieľanie vzdelávacieho "
+"obsahu."
+msgstr ""
+"and was developed with regard to the needs of teachers and the sharing of"
+" educational content."
+
+#: templates/about.html:17
+msgid ""
+"Tento projekt slúži ako ukážka použitia moderných webových technológií "
+"pre reálne riešenia v oblasti vzdelávania."
+msgstr ""
+"This project serves as a demonstration of using modern web technologies "
+"for real-world solutions in education."
+
+#: templates/ai_generate.html:3
+msgid "AI Materiály | EduForum"
+msgstr "AI Materials | EduForum"
+
+#: templates/ai_generate.html:7
+msgid "Generovanie študijných materiálov pomocou AI"
+msgstr "Generate Study Materials with AI"
+
+#: templates/ai_generate.html:12
+msgid "Téma"
+msgstr "Topic"
+
+#: templates/ai_generate.html:17
+msgid "Úroveň vzdelávania"
+msgstr "Education Level"
+
+#: templates/ai_generate.html:26
+msgid "Typ materiálu"
+msgstr "Material Type"
+
+#: templates/ai_generate.html:28
+msgid "-- Vyber --"
+msgstr "-- Select --"
+
+#: templates/ai_generate.html:29
+msgid "Poznámky"
+msgstr "Notes"
+
+#: templates/ai_generate.html:30
+msgid "Prezentácia"
+msgstr "Presentation"
+
+#: templates/ai_generate.html:31
+msgid "Test"
+msgstr "Test"
+
+#: templates/ai_generate.html:32
+msgid "Otázky a odpovede"
+msgstr "Q&A"
+msgid "Téma musí mať aspoň 3 znaky."
+msgstr "Topic must be at least 3 characters long."
+
+msgid "Téma je príliš dlhá (max. 100 znakov)."
+msgstr "Topic is too long (max 100 characters)."
+
+msgid "Neplatná úroveň vzdelávania."
+msgstr "Invalid education level."
+
+msgid "Neplatný typ materiálu."
+msgstr "Invalid material type."
+
+msgid "Názov musí mať aspoň 3 znaky."
+msgstr "Title must be at least 3 characters long."
+
+msgid "Najprv sa prihláste."
+msgstr "Please log in first."
+
+msgid "Obsah je povinný."
+msgstr "Content is required."
+
+msgid "Musíte vybrať kategóriu."
+msgstr "You must select a category."
+
+msgid "❌ Chyba pri generovaní súboru: "
+msgstr "❌ Error generating file: "
+
+msgid "⚠️ Materiál s rovnakým obsahom už existuje."
+msgstr "⚠️ A material with the same content already exists."
+
+msgid "✅ AI materiál bol uložený."
+msgstr "✅ AI material has been saved."
+
+msgid "❌ DB chyba: "
+msgstr "❌ Database error: "
+msgid "❗ Je potrebné nahrať súbor."
+msgstr "❗ File upload is required."
+
+msgid "❌ Nepodporovaný formát súboru. Povolené sú len PDF a PPTX."
+msgstr "❌ Unsupported file format. Only PDF and PPTX are allowed."
+
+msgid "⚠️ Tento materiál už existuje v databáze."
+msgstr "⚠️ This material already exists in the database."
+
+msgid "✅ Materiál bol úspešne pridaný."
+msgstr "✅ Material was successfully added."
+
+msgid "🛠️ Chyba databázy: "
+msgstr "🛠️ Database error: "
+
+msgid "❗ Materiál neexistuje."
+msgstr "❗ Material does not exist."
+
+msgid "❌ Nemáš oprávnenie aktualizovať tento materiál."
+msgstr "❌ You do not have permission to update this material."
+
+msgid "❗ Názov a obsah sú povinné."
+msgstr "❗ Title and content are required."
+
+msgid "❌ Nepodporovaný formát na úpravu."
+msgstr "❌ Unsupported format for editing."
+
+msgid "❌ Chyba pri ukladaní súboru: %(error)s"
+msgstr "❌ Error saving file: %(error)s"
+
+msgid "✅ Materiál bol úspešne aktualizovaný."
+msgstr "✅ Material was successfully updated."
+
+msgid "❌ Tento formát sa nedá upravovať."
+msgstr "❌ This format cannot be edited."
+
+msgid "❌ Chyba pri načítavaní súboru: %(error)s"
+msgstr "❌ Error loading file: %(error)s"
+
+msgid "Editovať"
+msgstr "Edit"
+
+msgid "💾 Zverejniť nový materiál"
+msgstr "💾 Publish new material"
+
+msgid "📥 Stiahnuť súbor"
+msgstr "📥 Download file"
+
+msgid "🚫 Zrušiť úpravy"
+msgstr "🚫 Cancel edits"
+
+msgid "⚠️ Chyba pri sťahovaní súboru."
+msgstr "⚠️ Error downloading file."
+
+msgid "Editovať materiál"
+msgstr "Edit material"
+
+msgid "Editácia materiálu"
+msgstr "Material editing"
+
+msgid "Žiadne nové upozornenia."
+msgstr "No new notifications."
+
+msgid "🛑 Nepodarilo sa nájsť autora problému."
+msgstr "🛑 Unable to find the author of the issue."
+
+msgid "📥 Niekto pridal riešenie k vášmu problému."
+msgstr "📥 Someone has added a solution to your issue."
+
+msgid "✅ Riešenie bolo pridané."
+msgstr "✅ A solution has been added."
+
+msgid "Zobraziť len moje problémy"
+msgstr "Show only my issues"
+
+msgid "Zobraziť len moje materiály"
+msgstr "Show only my materials"
+
+
+msgid "AJAX chyba:"
+msgstr "AJAX error:"
+
+msgid "Server error"
+msgstr "Server error"
+
+msgid "Vyberte položku zo zoznamu."
+msgstr "Please select an option from the list."
+#: templates/ai_generate.html:37
+msgid "Generovať"
+msgstr "Generate"
+
+#: templates/ai_generate.html:44
+msgid "Uprav a ulož generovaný materiál"
+msgstr "Edit and Save Generated Material"
+
+#: templates/ai_generate.html:48
+msgid "Názov"
+msgstr "Title"
+
+#: templates/ai_generate.html:53
+msgid "Popis"
+msgstr "Description"
+
+#: templates/ai_generate.html:58
+msgid "Kategória"
+msgstr "Category"
+
+#: templates/ai_generate.html:70
+msgid "Obsah"
+msgstr "Content"
+
+#: templates/ai_generate.html:77
+msgid "Zverejniť materiál"
+msgstr "Publish Material"
+
+#: templates/ai_generate.html:78
+msgid "Stiahnuť materiál"
+msgstr "Download Material"
+
+#: templates/ai_generate.html:79
+msgid "Nezverejňovať"
+msgstr "Discard"
+
+#: templates/ai_generate.html:115
+msgid "material"
+msgstr "material"
+
+#: templates/ai_generate.html:134
+msgid "⚠️ Nepodarilo sa stiahnuť súbor."
+msgstr "⚠️ Failed to download file."
+
+#: templates/base.html:14
+msgid "Prosím vyplň aspoň názov a nahraj súbor."
+msgstr "Please fill in the name and upload a file."
+
+#: templates/base.html:15
+msgid "⚠️ Nepodarilo sa načítať materiály."
+msgstr "⚠️ Failed to load materials."
+
+#: templates/base.html:17
+msgid "Vyplňte toto pole."
+msgstr "Fill in this field."
+
+#: templates/base.html:18
+msgid "Zadajte platný e-mail."
+msgstr "Please enter a valid email."
+
+#: templates/base.html:67
+msgid "Jazyk"
+msgstr "Language EN"
+
+#: templates/base.html:70
+msgid "Slovensky"
+msgstr "Slovak"
+
+#: templates/base.html:71
+msgid "English"
+msgstr "English"
+
+#: templates/base.html:78
+msgid "Problémy"
+msgstr "Problems"
+
+#: templates/base.html:83
+msgid "Materiály"
+msgstr "Materials"
+
+#: templates/base.html:88
+msgid "AI Materiály"
+msgstr "AI Materials"
+
+#: templates/base.html:92
+msgid "Odhlásiť sa"
+msgstr "Log out"
+
+#: templates/base.html:107
+msgid "Zavrieť"
+msgstr "Close"
+
+#: templates/base.html:120
+msgid "Vytvorené s ❤️ pre školstvo"
+msgstr "Created with ❤️ for education"
+
+#: templates/base.html:123
+msgid "O projekte EduForum"
+msgstr "About the EduForum project"
+
+#: templates/base.html:127
+msgid "Prihlásený ako"
+msgstr "Logged in as"
+
+#: templates/forgot_password.html:3
+#, fuzzy
+msgid "Zabudnuté heslo | EduForum"
+msgstr "Forgot Password"
+
+#: templates/forgot_password.html:8
+msgid "Obnova hesla"
+msgstr "Reset Password"
+
+#: templates/forgot_password.html:11
+msgid "E-mailová adresa"
+msgstr "Email Address"
+
+#: templates/forgot_password.html:15 templates/login.html:15
+#: templates/register.html:19
+msgid "Heslo"
+msgstr "Password"
+
+#: templates/forgot_password.html:19
+msgid "Znova zadajte heslo"
+msgstr "Confirm password"
+
+#: templates/forgot_password.html:23
+msgid "Odoslať inštrukcie"
+msgstr "Reset password"
+
+msgid "Uveďte v e-mailovej adrese znak @."
+msgstr "Include the '@' character in the email address."
+
+#: templates/forgot_password.html:27
+msgid "Späť na prihlásenie"
+msgstr "Back to login"
+
+#: templates/index.html:7
+msgid "Vitaj na"
+msgstr "Welcome to"
+
+#: templates/index.html:9
+msgid ""
+"Zdieľaj problémy spojené s digitalizáciou vo vzdelávaní a pomáhaj "
+"ostatným s učebnými materiálmi."
+msgstr ""
+"Share issues related to digitalization in education and help others with "
+"learning materials."
+
+#: templates/index.html:13
+msgid "Prejsť na problémy"
+msgstr "Go to problems"
+
+#: templates/index.html:16
+msgid "Prejsť na materiály"
+msgstr "Go to materials"
+
+#: templates/index.html:19
+msgid "Vygenerovať materiál"
+msgstr "Generate material"
+
+#: templates/login.html:3
+msgid "Prihlásenie | EduForum"
+msgstr "Log in to Eduforum"
+
+#: templates/login.html:8
+msgid "Prihlásenie"
+msgstr "Log in to EduForum"
+
+#: templates/login.html:11 templates/register.html:11
+msgid "Používateľské meno"
+msgstr "Username"
+
+#: templates/login.html:19
+msgid "Zabudnuté heslo?"
+msgstr "Forgot Password?"
+
+#: templates/login.html:22
+msgid "Nemáte účet? Zaregistrujte sa"
+msgstr "Don't have an account? Sign up"
+
+#: templates/login.html:25
+msgid "Prihlásiť sa"
+msgstr "Log in"
+
+#: templates/register.html:3
+msgid "Registrácia | EduForum"
+msgstr "Sign up for EduForum"
+
+#: templates/register.html:8
+msgid "Registrácia"
+msgstr "Sign up for Eduforum"
+
+#: templates/register.html:15
+msgid "Email"
+msgstr "Email"
+
+#: templates/register.html:23
+msgid "Potvrď heslo"
+msgstr "Confirm password"
+
+#: templates/register.html:27
+msgid "Už mám účet"
+msgstr "Alredy have account?"
+
+#: templates/register.html:30
+msgid "Registrovať sa"
+msgstr "Sign up"
+
+msgid "Vybrať súbor"
+msgstr "Choose a file"
+
+msgid "Žiadny súbor nevybraný"
+msgstr "No file chosen"
+msgid "MATH"
+msgstr "Mathematics"
+
+msgid "SLOVAK"
+msgstr "Slovak Language"
+
+msgid "PHYSICS"
+msgstr "Physics"
+
+msgid "CHEMISTRY"
+msgstr "Chemistry"
+
+msgid "BIOLOGY"
+msgstr "Biology"
+
+msgid "ENGLISH"
+msgstr "English"
+
+msgid "HISTORY"
+msgstr "History"
+
+msgid "GEOGRAPHY"
+msgstr "Geography"
+
+msgid "❗ Title and file are required."
+msgstr "❗ Title and file are required."
+
+msgid "❌Nepodporovaný formát. Používajte len PDF alebo PPTX."
+msgstr "❌ Unsupported file format. Only PDF and PPTX are allowed."
+
+msgid "⚠️ A file with the same content has already been added."
+msgstr "⚠️ A file with the same content has already been added."
+
+msgid "The returned ID value is empty – the material was not saved."
+msgstr "The returned ID value is empty – the material was not saved."
+
+msgid "✅ The material was successfully added."
+msgstr "✅ The material was successfully added."
+
+msgid "⚠️ This material already exists in the database (unique constraint)."
+msgstr "⚠️ This material already exists in the database (unique constraint)."
+
+msgid "🛑 Database error: "
+msgstr "🛑 Database error: "
+
+msgid "🛠️ Unknown error: "
+msgstr "🛠️ Unknown error: "
+
+
+msgid "zs"
+msgstr "Primary school"
+
+msgid "ss"
+msgstr "High school"
+
+msgid "vs"
+msgstr "University"
+
+msgid "Materiály"
+msgstr "Materials"
+
+msgid "Pridať učebný materiál"
+msgstr "Add Study Material"
+
+msgid "Názov"
+msgstr "Title"
+
+msgid "Popis"
+msgstr "Description"
+
+msgid "Kategória"
+msgstr "Category"
+
+msgid "Súbor"
+msgstr "File"
+
+msgid "Nahrať"
+msgstr "Upload"
+
+msgid "Vyhľadávanie materiálov"
+msgstr "Search Materials"
+
+msgid "Názov, predmet, kľúčové slovo"
+msgstr "Title, Subject, Keyword"
+
+msgid "Typ: všetko"
+msgstr "Type: all"
+
+msgid "Kategória: všetko"
+msgstr "Category: all"
+
+msgid "Hľadať"
+msgstr "Search"
+
+msgid "Zoznam materiálov"
+msgstr "Materials List"
+
+msgid "Načítať ďalšie"
+msgstr "Load More"
+
+msgid "Základná škola"
+msgstr "Primary School"
+
+msgid "Stredná škola"
+msgstr "High School"
+
+msgid "Vysoká škola"
+msgstr "University"
+
+msgid "Stiahnuť"
+msgstr "Download"
+
+msgid "Načítavam…"
+msgstr "Loading..."
+
+msgid "Chyba pri načítaní materiálov"
+msgstr "Error loading materials"
+
+msgid "Chyba"
+msgstr "Error"
+
+#: templates/...
+msgid "Problém"
+msgstr "Problem"
+
+msgid "Riešenia:"
+msgstr "Solutions:"
+
+msgid "Zatiaľ bez riešenia"
+msgstr "No solutions yet"
+
+msgid "Pridať riešenie"
+msgstr "Add solution"
+
+msgid "PDF súbor"
+msgstr "PDF file"
+
+msgid "Popis riešenia"
+msgstr "Solution description"
+
+msgid "Odoslať riešenie"
+msgstr "Submit solution"
+
+msgid "Žiadne problémy neboli nájdené."
+msgstr "No problems found."
+
+#: templates/...
+msgid "Problémy"
+msgstr "Problems"
+
+msgid "Pridať nový problém"
+msgstr "Add new problem"
+
+msgid "Názov problému"
+msgstr "Problem title"
+
+msgid "Popis problému"
+msgstr "Problem description"
+
+msgid "Kategória"
+msgstr "Category"
+
+msgid "Vyberte kategóriu"
+msgstr "Select category"
+
+msgid "PDF s riešením (voliteľné)"
+msgstr "PDF with solution (optional)"
+
+msgid "Popis riešenia (voliteľný)"
+msgstr "Solution description (optional)"
+
+msgid "Pridať problém"
+msgstr "Add problem"
+
+msgid "Vyhľadávanie problémov"
+msgstr "Search problems"
+
+msgid "Názov, kľúčové slovo, tag"
+msgstr "Title, keyword, tag"
+
+msgid "Vyhľadaj"
+msgstr "Search"
+
+msgid "Zoznam problémov"
+msgstr "List of problems"
+
+msgid "❗ Názov musí mať aspoň 3 znaky."
+msgstr "❗ Title must have at least 3 characters."
+
+msgid "❗ Popis musí mať aspoň 10 znakov."
+msgstr "❗ Description must have at least 10 characters."
+
+msgid "❗ Musíte vybrať kategóriu."
+msgstr "❗ You must select a category."
+
+msgid "❌ Riešenie musí byť vo formáte PDF."
+msgstr "❌ The solution must be in PDF format."
+
+msgid "❗ Musíte pridať popis riešenia."
+msgstr "❗ You must add a solution description."
+
+msgid "✅ Problém bol úspešne pridaný."
+msgstr "✅ Problem was successfully added."
+
+msgid "🛑 Chyba pri ukladaní problému: "
+msgstr "🛑 Error while saving the problem: "
+
+msgid "✅ Riešenie bolo pridané."
+msgstr "✅ Solution was added."
+
+msgid "🛑 Chyba pri ukladaní riešenia: "
+msgstr "🛑 Error while saving the solution: "
+
+msgid "❗ Súbor riešenia je povinný."
+msgstr "❗ Solution file is required."
+
+msgid "❗ Musíte vybrať problém."
+msgstr "❗ You must select a problem."
+
+msgid "⚠️ Riešenie s rovnakým obsahom už existuje pre tento problém."
+msgstr "⚠️ A solution with the same content already exists for this problem."
+
+msgid "Zameranie"
+msgstr "Specialization"
+
+msgid "Ročník"
+msgstr "Grade"
+
+msgid "Ročník: všetko"
+msgstr "Grade: all"
+
+msgid "Zameranie: všetko"
+msgstr "Specialization: all"
+
+msgid "💾 Zverejniť materiál"
+msgstr "💾 Publish material"
+
+msgid "📥 Stiahnuť materiál"
+msgstr "📥 Download material"
+
+msgid "🚫 Nezverejňovať"
+msgstr "🚫 Do not publish"
+
+msgid "Počet výberových otázok (A–D)"
+msgstr "Number of multiple choice questions (A–D)"
+
+msgid "Počet otvorených otázok"
+msgstr "Number of open-ended questions"
+
+msgid "⚠️ OpenAI API je preťažené alebo odpovedá príliš dlho. Skúste znova neskôr."
+msgstr "⚠️ The OpenAI API is overloaded or taking too long to respond. Please try again later."
+
+msgid "❌ Neznáma chyba OpenAI API:"
+msgstr "❌ Unknown OpenAI API error:"
+
+msgid "⚠️ Nepodarilo sa zmazať dočasný súbor:"
+msgstr "⚠️ Failed to delete temporary file:"
+
+msgid "Nepodporovaný formát. Používajte len PDF."
+msgstr "Unsupported format. Please use PDF only."
+
+msgid "Chyba pri načítaní problémov"
+msgstr "Error loading questions"
+
+msgid "Chyba"
+msgstr "Error"
+
+
+#: venv/Lib/site-packages/click/_termui_impl.py:556
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: venv/Lib/site-packages/click/_termui_impl.py:560
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1124
+msgid "Aborted!"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1349
+#: venv/Lib/site-packages/click/core.py:1379
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1396
+msgid "Options"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1422
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/core.py:1438
+#, python-brace-format
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1645
+msgid "Commands"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1677
+msgid "Missing command."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:1755
+#, python-brace-format
+msgid "No such command {name!r}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2313
+msgid "Value must be an iterable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2334
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/core.py:2783
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2813
+msgid "(dynamic)"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2828
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2841
+msgid "required"
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:457
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:520
+msgid "Show the version and exit."
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:541
+msgid "Show this message and exit."
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:49
+#: venv/Lib/site-packages/click/exceptions.py:88
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:80
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:129
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:131
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:187
+msgid "Missing argument"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:189
+msgid "Missing option"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:191
+msgid "Missing parameter"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:193
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:200
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:220
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:232
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/exceptions.py:270
+msgid "unknown error"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:277
+#, python-brace-format
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/formatting.py:156
+msgid "Usage:"
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:233
+#, python-brace-format
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:415
+#, python-brace-format
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:476
+#, python-brace-format
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/shell_completion.py:326
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: venv/Lib/site-packages/click/shell_completion.py:333
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:267
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:299
+#, python-brace-format
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/types.py:393
+#, python-brace-format
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/types.py:415
+#, python-brace-format
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:471
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:612
+#, python-brace-format
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:636
+#, python-brace-format
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:826
+msgid "file"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:828
+msgid "directory"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:830
+msgid "path"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:881
+#, python-brace-format
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:890
+#, python-brace-format
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:898
+#, python-brace-format
+msgid "{name} {filename!r} is a directory."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:907
+#, python-brace-format
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:916
+#, python-brace-format
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:925
+#, python-brace-format
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:992
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#~ msgid "zs"
+#~ msgstr "Primary school"
+
+#~ msgid "ss"
+#~ msgstr "High school"
+
+#~ msgid "vs"
+#~ msgstr "University"
+
+#~ msgid "ZŠ"
+#~ msgstr "Primary School"
+
+#~ msgid "SŠ"
+#~ msgstr "Secondary School"
+
+#~ msgid "VŠ"
+#~ msgstr "University"
+

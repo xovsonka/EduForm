@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Problémy') }} | EduForum{% endblock %}
+
+{% block content %}
+<div class="col-lg-10 mx-auto">
+
+  <!-- Pridanie problému -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h2 class="mb-4 text-danger">🛠️ {{ _('Pridať nový problém') }}</h2>
+      <form method="POST" enctype="multipart/form-data" action="{{ url_for('problems.add_problem') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+          <label for="problem-title" class="form-label">{{ _('Názov problému') }}</label>
+          <input type="text" class="form-control" id="problem-title" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="problem-desc" class="form-label">{{ _('Popis problému') }}</label>
+          <textarea class="form-control" id="problem-desc" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="problem-category" class="form-label">{{ _('Kategória') }}</label>
+          <select class="form-select" id="problem-category" name="category" required>
+            <option value="">{{ _('Vyberte kategóriu') }}</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}" data-key="{{ cat.key }}"
+              {% if request.args.get('category') == cat.id|string %}selected{% endif %}>
+              {{ cat.label }}
+            </option>
+          {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="solution-file" class="form-label">{{ _('PDF s riešením (voliteľné)') }}</label>
+          {% set field_name = 'solution_file' %}
+          {% set suffix     = 'new' %}
+          {% include 'partials/problems_input.html' %}
+        </div>
+        <div class="mb-3">
+          <label for="solution-desc" class="form-label">{{ _('Popis riešenia (voliteľný)') }}</label>
+          <textarea class="form-control" id="solution-desc" name="solution_description" rows="2"></textarea>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-danger">{{ _('Pridať problém') }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- Vyhľadávanie problémov -->
+<div class="card shadow-sm mb-5">
+  <div class="card-body">
+    <h4 class="mb-3 text-secondary">🔍 {{ _('Vyhľadávanie problémov') }}</h4>
+    <form id="search-form" class="row g-3" method="GET" action="" onsubmit="return false;">
+
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="query" placeholder="{{ _('Názov, kľúčové slovo, tag') }}"
+               value="{{ request.args.get('query', '') }}">
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" id="search-category" name="category">
+          <option value="">{{ _('Vyberte kategóriu') }}</option>
+          {% for cat in categories %}
+          <option value="{{ cat.id }}" data-key="{{ cat.key }}"
+            {% if request.args.get('category') == cat.id|string %}selected{% endif %}>
+            {{ cat.label }}
+          </option>
+        {% endfor %}
+        </select>
+      </div>
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="only_mine" id="only-mine"
+                 {% if request.args.get('only_mine') %}checked{% endif %}>
+          <label class="form-check-label" for="only-mine">
+            {{ _('Zobraziť len moje problémy') }}
+          </label>
+        </div>
+      </div>
+      <div class="col-12 text-end">
+        <button id="search-btn" type="button" class="btn btn-danger">
+          {{ _('Vyhľadaj') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Výpis problémov -->
+<div class="card shadow-sm mb-5">
+  <div class="card-body">
+    <h4 class="mb-3">📋 {{ _('Zoznam problémov') }}</h4>
+    <div id="problems-list" class="row row-cols-1 row-cols-md-2 g-4">
+      {% include "partials/_problems_item.html" %}
+    </div>
+
+    <!-- Load more tlačidlo (ak potrebuješ) -->
+    <div class="d-flex justify-content-center mt-4"
+         id="load-more-container"
+         {% if problems|length < 6 %}style="display:none;"{% endif %}>
+      <button id="load-more"
+              type="button"
+              class="btn btn-outline-secondary"
+              data-query="{{ request.args.get('query','') }}"
+              data-category="{{ request.args.get('category','') }}"
+              data-page="2">
+        {{ _('Načítať ďalšie') }}
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/problems.js') }}" defer></script>
+{% endblock %}

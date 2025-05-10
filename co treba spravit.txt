@@ -1,0 +1,10 @@
+pdf s prikladmi oriesit niekotre veci?
+dizajn css
+otestovat lokalizaciu a  doplnit
+
+vymysliet multijazycne generovanie tagov
+, multi jazycny descirption filter
+
+vyplnit databazu materialmi a problemymi -chat vygeneruje
+
+overit guide na spustenie aplikacie dorobit ho

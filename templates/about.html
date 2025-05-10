@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('O projekte') }} | {{ _('EduForum') }}{% endblock %}
+
+{% block content %}
+  <div class="py-5 px-3 text-center">
+    <h2 class="mb-4 fw-bold">{{ _('O projekte') }} <span class="text-primary">{{ _('EduForum') }}</span></h2>
+    <p class="lead mx-auto" style="max-width: 800px;">
+      {{ _('EduForum je webová aplikácia vytvorená ako súčasť bakalárskej práce študenta Fakulty riadenia a informatiky na Žilinskej univerzite. Jej cieľom je zjednodušiť zdieľanie problémov spojených s digitalizáciou vo vzdelávaní a uľahčiť výmenu učebných materiálov medzi pedagógmi.') }}
+    </p>
+
+    <p class="mt-4 mx-auto" style="max-width: 800px;">
+      {{ _('Projekt bol navrhnutý s dôrazom na jednoduchosť, prehľadnosť a praktické využitie v školskom prostredí. Aplikácia využíva technológie ako') }} <strong>Flask</strong>, <strong>PostgreSQL</strong> {{ _('a') }} <strong>Bootstrap</strong> {{ _('a bola vyvíjaná s ohľadom na potreby učiteľov a zdieľanie vzdelávacieho obsahu.') }}
+    </p>
+
+    <p class="mt-3 text-muted small">
+      {{ _('Tento projekt slúži ako ukážka použitia moderných webových technológií pre reálne riešenia v oblasti vzdelávania.') }}
+    </p>
+  </div>
+{% endblock %}

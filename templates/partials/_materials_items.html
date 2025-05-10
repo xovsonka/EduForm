@@ -1,0 +1,62 @@
+{% if materials %}
+  {% for m in materials %}
+    <div class="col">
+      <div class="card h-100 material-card">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ m.title }}</h5>
+          <p class="card-text">{{ m.description }}</p>
+
+          {% if m.category_name == 'ZŠ' %}
+            <span class="badge bg-primary">{{ _('Základná škola') }}</span>
+          {% elif m.category_name == 'SŠ' %}
+            <span class="badge bg-success">{{ _('Stredná škola') }}</span>
+          {% elif m.category_name == 'VŠ' %}
+            <span class="badge bg-purple text-white">{{ _('Vysoká škola') }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ _(m.category_name) }}</span>
+          {% endif %}
+          {% if m.focus_label %}
+  <span class="badge bg-info text-dark">{{ m.focus_label }}</span>
+{% endif %}
+
+{% if m.grade_label %}
+  <span class="badge bg-secondary">{{ m.grade_label }}</span>
+{% endif %}
+
+          {% set ext = m.file_path.split('.')[-1]|lower %}
+          {% if ext == 'pdf' %}
+            <span class="badge bg-danger">PDF</span>
+          {% elif ext == 'pptx' %}
+            <span class="badge bg-warning text-dark">PPTX</span>
+          {% else %}
+            <span class="badge bg-light text-dark">{{ ext|upper }}</span>
+          {% endif %}
+        </div>
+        <div class="card-footer text-end">
+          <a href="{{ url_for('static', filename=m.file_path) }}"
+             class="btn btn-sm btn-outline-primary fixed-width-btn"
+             target="_blank">{{ _('Stiahnuť') }}</a>
+             <a href="{{ url_for('materials.edit_material', material_id=m.id) }}"
+                class="btn btn-sm btn-outline-warning fixed-width-btn">
+                {{ _('Editovať') }}
+            </a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="col">
+    <div class="alert alert-info text-center" role="alert">
+      {{ _('Žiadne materiály neboli nájdené.') }}
+    </div>
+  </div>
+{% endif %}
+
+<style>
+    .fixed-width-btn {
+  width: 30%; 
+  text-align: center;
+}
+
+</style>
+  
