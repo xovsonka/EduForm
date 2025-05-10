@@ -83,7 +83,7 @@ python app.py
 
 ---
 
-## 🧪 4. Create a Virtual Environment
+## 🧪 4. Create a Virtual Environment(manual set up steps 4-8)
 
 ### Windows
 
