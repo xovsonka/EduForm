@@ -9,7 +9,6 @@
   <form method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="content" id="hiddenContent">
-    <!-- Skrytý input na typ materiálu (Prezentácia alebo Poznámky) -->
     <input type="hidden" id="materialType" value="{% if material.file_path.endswith('.pptx') %}Prezentácia{% else %}Poznámky{% endif %}">
 
     <div class="mb-3">
@@ -50,7 +49,6 @@
       <label class="form-label">{{ _('Obsah') }}</label>
       <div id="editor" style="height: 400px;">{{ extracted_text|safe }}</div>
     </div>
-<!-- Reaguje na veľkosť obrazovky: stĺpec na mobiloch, riadok na väčších -->
     <div class="material-buttons d-flex flex-column flex-md-row gap-2 justify-content-end mx-auto w-100">
         <div class="btn-wrapper">
         <button type="submit" class="btn btn-success w-100">
@@ -72,10 +70,8 @@
   </form>
 </div>
 
-<!-- Meta pre CSRF -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<!-- Quill editor -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
@@ -87,18 +83,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const hiddenContentInput = document.getElementById("hiddenContent");
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-  // Pri submit formulára uložíme obsah z editora
   formEdit.addEventListener("submit", function () {
     hiddenContentInput.value = editor.root.innerHTML;
   });
 
-  // Funkcia na stiahnutie upraveného materiálu
   async function downloadEditedMaterial() {
     const editorContent = editor.root.innerHTML;
     const title = document.querySelector("input[name='title']").value || "material";
     const grades = document.querySelector("select[name='grade_id']")?.value || "";
     const focus = document.querySelector("select[name='focus_id']")?.value || "";
-    const materialType = document.getElementById("materialType")?.value || "Poznámky"; // Dynamicky z hidden inputu
+    const materialType = document.getElementById("materialType")?.value || "Poznámky"; 
 
     try {
       const response = await fetch("{{ url_for('ai.download_material') }}", {
@@ -120,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const blob = await response.blob();
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = title + (materialType === "Prezentácia" ? ".pptx" : ".pdf"); // Nastaví správnu príponu
+        a.download = title + (materialType === "Prezentácia" ? ".pptx" : ".pdf");
         a.click();
         URL.revokeObjectURL(a.href);
       } else {
@@ -133,12 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Funkcia na zrušenie editácie
   function discardEditMaterial() {
     window.location.href = "{{ url_for('materials.materials') }}";
   }
 
-  // Event Listeners
   document.getElementById("downloadBtn").addEventListener("click", downloadEditedMaterial);
   document.getElementById("discardBtn").addEventListener("click", discardEditMaterial);
 });
@@ -149,8 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
       min-width: 0;
     }
 
-    
-    /* Na malých obrazovkách (mobil) obmedzíme šírku a centrovanie */
     @media (max-width: 767.98px) {
       .material-buttons .btn-wrapper {
         max-width: 70%;

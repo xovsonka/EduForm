@@ -28,7 +28,7 @@ limiter = Limiter(key_func=get_remote_address)
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# --- Helpery ---
+
 def query_openai(prompt: str) -> str:
     try:
         response = client.chat.completions.create(
@@ -171,7 +171,6 @@ def generate_ai_output(topic: str, level: str, material_type: str, num_mcq: int 
 
     return format_output_to_html(result)
 
-# --- ROUTES ---
 
 @ai_bp.route("/generate", methods=["GET", "POST"])
 @limiter.limit("5 per minute")

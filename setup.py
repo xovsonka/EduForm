@@ -10,14 +10,14 @@ except ImportError:
     subprocess.check_call([os.sys.executable, "-m", "pip", "install", "python-dotenv"])
     from dotenv import load_dotenv, set_key
 
-# Cesty
+# Routes
 ENV_FILE = Path(".env")
 VENV_DIR = Path("venv")
 REQUIREMENTS_FILE = "requirements.txt"
 SQL_FILE = "schema.sql"
 APP_FILE = "app.py"
 
-# Default hodnoty do .env
+# Default values for .env
 ENV_DEFAULTS = {
     "DATABASE_HOST": "127.0.0.1",
     "DATABASE_PORT": "5432",
@@ -25,7 +25,7 @@ ENV_DEFAULTS = {
     "DATABASE_USER": "xovsonka",
     "DATABASE_PASSWORD": "SuperTajneHeslo",
     "UPLOAD_FOLDER": "static/uploads",
-    "SECRET_KEY": "",  # bude doplnený
+    "SECRET_KEY": "",  # filled automaticly
     "OPENAI_API_KEY": "",
     "WKHTMLTOPDF_PATH": r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
 
@@ -35,7 +35,7 @@ def generate_secret_key():
     return secrets.token_hex(32)
 
 def create_env_file():
-    print("📄 Vytváram .env súbor...")
+    print("📄 Creating env file..")
     with open(ENV_FILE, "w") as f:
         for key, value in ENV_DEFAULTS.items():
             f.write(f"{key}={value}\n")
@@ -49,27 +49,27 @@ def ensure_env_values():
             set_key(str(ENV_FILE), key, value)
             updated = True
     if updated:
-        print("🔑 Doplnil som chýbajúce premenné do .env")
+        print("🔑 Added values to env")
 
 def create_venv():
     if not VENV_DIR.exists():
-        print("🐍 Vytváram virtuálne prostredie...")
+        print("🐍 Creating venv")
         venv.create(str(VENV_DIR), with_pip=True)
     else:
-        print("✅ Virtuálne prostredie už existuje.")
+        print("✅ Venv exist.")
 
 def install_requirements():
-    print("📦 Inštalujem balíčky z requirements.txt...")
+    print("📦 Installing requirements.txt...")
     pip = VENV_DIR / ("Scripts/pip.exe" if os.name == "nt" else "bin/pip")
     subprocess.run([str(pip), "install", "-r", REQUIREMENTS_FILE], check=True)
 
 def init_postgres():
-    print("🗄️ Inicializujem PostgreSQL databázu...")
+    print("🗄️ Setting up PostgreSQL")
     load_dotenv(override=True)
     env = os.environ.copy()
     env["PGPASSWORD"] = os.getenv("DATABASE_PASSWORD")
 
-    # Vytvorenie databázy, ak neexistuje
+    # Creating DB
     check_cmd = [
         "psql",
         "-h", os.getenv("DATABASE_HOST"),
@@ -80,7 +80,7 @@ def init_postgres():
     ]
     result = subprocess.run(check_cmd, env=env, capture_output=True, text=True)
     if '1' not in result.stdout:
-        print("🆕 Vytváram databázu...")
+        print("🆕 Creating db")
         subprocess.run([
             "createdb",
             "-h", os.getenv("DATABASE_HOST"),
@@ -89,9 +89,9 @@ def init_postgres():
             os.getenv("DATABASE_NAME")
         ], env=env, check=True)
     else:
-        print("✅ Databáza už existuje.")
+        print("✅ DB alredy exist.")
 
-    # Import SQL schémy
+    # Import SQL
     subprocess.run([
         "psql",
         "-h", os.getenv("DATABASE_HOST"),
@@ -115,7 +115,7 @@ def main():
         install_requirements()
         init_postgres()
     except subprocess.CalledProcessError as e:
-        print(f"❌ Chyba počas vykonávania príkazu: {e}")
+        print(f"❌ Error:{e}")
         exit(1)
 
 if __name__ == "__main__":

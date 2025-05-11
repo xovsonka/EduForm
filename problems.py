@@ -48,7 +48,6 @@ def problems():
     cur.execute(sql, tuple(params))
     problems = cur.fetchall()
 
-    # 🔽 Pripoj riešenia ku každému problému
     for p in problems:
         cur.execute("""
             SELECT file_path, description
@@ -58,7 +57,6 @@ def problems():
         """, (p["id"],))
         p["solutions"] = cur.fetchall()
 
-    # Kategórie
     category=load_categories_translated()
     cur.close()
     conn.close()
@@ -155,7 +153,7 @@ def add_problem():
 def filter_problems():
     query      = request.args.get("query", "")
     category   = request.args.get("category", "")
-    only_mine  = request.args.get("only_mine")  # checkbox = "1" alebo None
+    only_mine  = request.args.get("only_mine") 
     page       = int(request.args.get("page", 1))
 
     per_page   = 6
@@ -190,7 +188,7 @@ def filter_problems():
         sql += " AND c.id = %s"
         params.append(category)
 
-    if only_mine == "1":  # checkbox zaškrtnutý
+    if only_mine == "1":  
         sql += " AND p.user_id = %s"
         params.append(session["user_id"])
 
@@ -203,7 +201,6 @@ def filter_problems():
     problems = rows[:per_page]
     has_more = len(rows) > per_page
 
-    # Načítať riešenia pre každý problém
     for p in problems:
         cur.execute("""
             SELECT file_path, description
@@ -258,7 +255,6 @@ def add_solution():
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
-        # Overenie duplicity riešenia pre tento problém
         cur.execute("""
             SELECT 1 FROM problem_solutions
             WHERE problem_id = %s AND file_hash = %s
@@ -268,7 +264,6 @@ def add_solution():
             flash(_("⚠️ Riešenie s rovnakým obsahom už existuje pre tento problém."), "warning")
             return redirect(url_for("problems.problems"))
 
-        # Získanie autora problému
         cur.execute("SELECT user_id, title FROM problems WHERE id = %s", (problem_id,))
         problem = cur.fetchone()
         if not problem or not problem["user_id"]:
@@ -278,10 +273,8 @@ def add_solution():
         author_id = problem["user_id"]
         problem_title = problem["title"]
 
-        # Uloženie súboru na disk
         file.save(file_path)
 
-        # Uloženie riešenia do databázy
         cur.execute("""
             INSERT INTO problem_solutions (problem_id, user_id, file_path, description, file_hash)
             VALUES (%s, %s, %s, %s, %s)
@@ -293,7 +286,6 @@ def add_solution():
             file_hash
         ))
 
-        # Notifikácia autorovi problému (iba ak nerieši svoj vlastný problém)
         if author_id != session["user_id"]:
             cur.execute("""
                 INSERT INTO notifications (user_id, message)

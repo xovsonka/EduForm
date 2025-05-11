@@ -70,8 +70,8 @@ def login_required(f):
 
 
 def get_file_hash(file_storage):
-    file_bytes = file_storage.read()  # prečíta celý obsah súboru
-    file_storage.seek(0)  # vráti späť ukazovateľ na začiatok
+    file_bytes = file_storage.read()  
+    file_storage.seek(0)  
     return hashlib.sha256(file_bytes).hexdigest()
 
 
@@ -85,7 +85,7 @@ def html_text_to_pptx(title: str, html_content: str, output_file: str = "present
     soup = BeautifulSoup(html_content, "html.parser")
     prs = Presentation()
 
-    # Úvodný slide
+    
     title_slide_layout = prs.slide_layouts[0]
     title_slide = prs.slides.add_slide(title_slide_layout)
     title_slide.shapes.title.text = title
@@ -143,16 +143,15 @@ def html_text_to_pdf(html_content: str, output_path: str):
     from dotenv import load_dotenv
     load_dotenv()
 
-    # Získaj cestu z .env
+
     wkhtmltopdf_path = os.getenv("WKHTMLTOPDF_PATH")
 
     if not wkhtmltopdf_path:
         raise EnvironmentError("WKHTMLTOPDF_PATH not set in .env file")
 
-    # Konfiguruj pdfkit
+    
     config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
 
-    # ➔ Úprava obsahu: ak nájdeme "Správne odpovede", vložíme pred to page break
     if "Správne odpovede" in html_content or "Correct Answers" in html_content:
         html_content = re.sub(
             r"(Správne odpovede|Correct Answers)",
@@ -234,14 +233,13 @@ def load_categories_translated():
         original_name = cat["name"]
         key = CATEGORY_NAME_TO_KEY.get(original_name)
         if key:
-            label = _(key)  # preloží podľa jazyka
+            label = _(key)  
             categories.append({
                 "id": cat["id"],
                 "key": key,
                 "label": label
             })
         else:
-            # fallback - ak tam je niečo neznáme, zobrazí pôvodný názov
             categories.append({
                 "id": cat["id"],
                 "key": original_name,
@@ -253,7 +251,7 @@ def load_categories_translated():
 from db import get_focuses, get_grades
 from flask_babel import _
 
-# Focusy - načítanie a preklad
+
 def load_focuses_translated():
     raw_focuses = get_focuses()
     focuses = []
@@ -261,7 +259,7 @@ def load_focuses_translated():
     for focus in raw_focuses:
         original_name = focus["name"]
         code = focus["code"]
-        label = _(code)  # použijeme code na preklad
+        label = _(code)  
 
         focuses.append({
             "id": focus["id"],
@@ -271,7 +269,7 @@ def load_focuses_translated():
 
     return focuses
 
-# Grades (ročníky) - načítanie a preklad
+
 def load_grades_translated():
     raw_grades = get_grades()
     grades = []
@@ -279,7 +277,7 @@ def load_grades_translated():
     for grade in raw_grades:
         original_name = grade["name"]
         code = grade["code"]
-        label = _(code)  # použijeme code na preklad
+        label = _(code)  
 
         grades.append({
             "id": grade["id"],
@@ -320,7 +318,7 @@ def extract_text_from_pptx(file_path):
 import pdfplumber
 
 
-import fitz  # PyMuPDF
+import fitz  
 
 def pdf_to_html_text(pdf_path: str) -> str:
     """
@@ -330,17 +328,15 @@ def pdf_to_html_text(pdf_path: str) -> str:
     html_content = ""
 
     for page in doc:
-        blocks = page.get_text("blocks")  # Získaj bloky textu
-        blocks = sorted(blocks, key=lambda b: (b[1], b[0]))  # zoradenie zhora-dole, zľava-doprava
+        blocks = page.get_text("blocks")  
+        blocks = sorted(blocks, key=lambda b: (b[1], b[0]))  
 
         for block in blocks:
             text = block[4].strip()
             if text:
-                # Môžeme obaliť každý blok do <p>
                 html_content += f"<p>{text}</p>\n"
 
-        html_content += '<div style="page-break-after: always;"></div>\n'  # oddeliť strany
-
+        html_content += '<div style="page-break-after: always;"></div>\n'  
     return f"""<!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -372,15 +368,12 @@ def pptx_to_html_text(file_path: str) -> str:
             if not text:
                 continue
 
-            # Špeciálne spracovanie pre prvý slide
             if idx == 0:
-                # Ignoruj autora ("Generovane ai" v druhom placeholderi)
                 if shape == slide.placeholders[1]:
                     continue
                 else:
-                    continue  # Ignoruj celý prvý slide (ak je len title + author)
+                    continue 
             
-            # Pre normálne slidy spracuj text
             lines = text.splitlines()
 
             for line in lines:
@@ -389,11 +382,10 @@ def pptx_to_html_text(file_path: str) -> str:
                     continue
 
                 if header is None:
-                    header = line  # prvý riadok v slide - použijeme ako header
+                    header = line  
                 else:
                     bullets.append(line)
 
-        # Spracuj obsah slidu (okrem prvého úvodného)
         if header:
             output_lines.append(f"<p>Slide {slide_number}: {header}</p>")
             slide_number += 1

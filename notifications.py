@@ -1,7 +1,7 @@
 from flask import Blueprint, session, jsonify
 from flask_babel import _
 from utils.utils import login_required
-from db import get_dict_cursor  # uprav podľa projektu
+from db import get_dict_cursor 
 
 notifications_bp = Blueprint("notifications", __name__, url_prefix="/notifications")
 

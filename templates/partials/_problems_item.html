@@ -41,7 +41,6 @@
             <p class="text-muted small">🔍 {{ _('Zatiaľ bez riešenia') }}</p>
           {% endif %}
 
-          <!-- Vylepšené tlačidlo na otvorenie collapsible -->
           <button class="add-solution-btn mt-3" 
                   type="button" 
                   data-bs-toggle="collapse"
@@ -51,7 +50,6 @@
             ➕ {{ _('Pridať riešenie') }}
           </button>
 
-          <!-- Collapsible formulár -->
           <div class="collapse mt-3" id="solution-form-{{ problem.id }}">
             <form method="POST" action="{{ url_for('problems.add_solution') }}" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

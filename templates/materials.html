@@ -5,7 +5,6 @@
   {% block content %}
   <div class="col-lg-10 mx-auto">
 
-    <!-- Pridanie materiálu -->
     <div class="card shadow-sm mb-5">
       <div class="card-body">
         <h2 class="mb-4 text-primary">📝 {{ _('Pridať učebný materiál') }}</h2>
@@ -35,7 +34,6 @@
             <label for="material-subor" class="form-label">{{ _('Súbor') }}</label>
             {% include 'partials/file_input.html' %}
           </div>
-          <!-- Výber zamerania -->
       <div class="mb-3">
         <label for="material-focus" class="form-label">{{ _('Zameranie') }}</label>
         <select class="form-select" id="material-focus" name="focus_id">
@@ -46,7 +44,6 @@
         </select>
       </div>
 
-      <!-- Výber ročníka -->
       <div class="mb-3">
         <label for="material-grade" class="form-label">{{ _('Ročník') }}</label>
         <select class="form-select" id="material-grade" name="grade_id">
@@ -64,7 +61,6 @@
       </div>
     </div>
 
-    <!-- Vyhľadávanie -->
     <div class="card shadow-sm mb-5">
       <div class="card-body">
         <h4 class="mb-3 text-secondary">🔍 {{ _('Vyhľadávanie materiálov') }}</h4>
@@ -91,7 +87,6 @@
               {% endfor %}
             </select>          
           </div>
-          <!-- NOVÉ: Focus filter -->
           <div class="col-md-2">
             <select class="form-select" name="focus">
               <option value="">{{ _('Zameranie: všetko') }}</option>
@@ -103,7 +98,6 @@
             </select>
           </div>
 
-          <!-- NOVÉ: Grade filter -->
           <div class="col-md-2">
             <select class="form-select" name="grade">
               <option value="">{{ _('Ročník: všetko') }}</option>
@@ -114,7 +108,6 @@
               {% endfor %}
             </select>
           </div>
-                    <!-- Checkbox: iba moje materiály -->
           <div class="col-md-4">
             <div class="form-check mt-2">
               <input class="form-check-input" type="checkbox" name="only_mine" id="only-mine"
@@ -136,7 +129,6 @@
       </div>
     </div>
 
-    <!-- Výpis materiálov -->
     <div class="card shadow-sm mb-5">
       <div class="card-body">
         <h4 class="mb-3">📚 {{ _('Zoznam materiálov') }}</h4>
@@ -146,7 +138,6 @@
           {% include "partials/_materials_items.html" %}
         </div>
 
-        <!-- Load more tlačidlo -->
         <div class="d-flex justify-content-center mt-4"
             id="load-more-container"
             {% if materials|length < 6 %}style="display:none;"{% endif %}>

@@ -23,7 +23,7 @@ from pptx.dml.color import RGBColor
 import re
 from utils.utils import html_text_to_pptx
 materials_bp = Blueprint("materials", __name__)
-from flask_babel import _  # ✅ Pridaj na začiatok
+from flask_babel import _  
 from flask import jsonify
 from db import get_focuses, get_grades
 from utils.utils import load_focuses_translated,load_grades_translated
@@ -95,7 +95,7 @@ def materials():
         "materials.html",
         materials=materials,
         categories=categories,
-        focuses=focuses,  # správne
+        focuses=focuses,  
         grades=grades,  
         filtered=filtered
     )
@@ -106,21 +106,18 @@ def add_material():
     title = request.form.get("title", "").strip()
     description = request.form.get("description", "").strip()
     category_id = request.form.get("category_id")
-    focus_id = request.form.get("focus_id")  # 🆕 načítame focus
-    grade_id = request.form.get("grade_id")  # 🆕 načítame grade
+    focus_id = request.form.get("focus_id")  
+    grade_id = request.form.get("grade_id")  
     file = request.files.get("file")
 
     errors = []
 
-    # Validácia názvu
     if not title or len(title) < 3:
         errors.append(_("❗ Názov musí mať aspoň 3 znaky."))
 
-    # Validácia popisu
     if not description or len(description) < 10:
         errors.append(_("❗ Popis musí mať aspoň 10 znakov."))
 
-    # Validácia súboru
     if not file or file.filename == '':
         errors.append(_("❗ Je potrebné nahrať súbor."))
     else:
@@ -136,17 +133,16 @@ def add_material():
         file_size = file.tell()
         file.seek(0)
 
-        max_size = 10 * 1024 * 1024  # 10 MB
+        max_size = 10 * 1024 * 1024  
         if file_size > max_size:
             errors.append(_("⚠️ Súbor je príliš veľký (maximálna veľkosť je 10MB)."))
 
-    # Ak máme chyby, zobrazíme ich
+    
     if errors:
         for error in errors:
             flash(error, "danger")
         return redirect(url_for("materials.materials"))
 
-    # Uloženie súboru
     filename = secure_filename(file.filename)
     upload_dir = os.path.join(current_app.config["UPLOAD_FOLDER"], "materials")
     os.makedirs(upload_dir, exist_ok=True)
@@ -164,13 +160,13 @@ def add_material():
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
-        # Duplicitný hash
+        
         cur.execute("SELECT id FROM materials WHERE file_hash = %s", (file_hash,))
         if cur.fetchone():
             flash(_("⚠️ Materiál s rovnakým obsahom už existuje."), "warning")
             return redirect(url_for("materials.materials"))
 
-        # Vloženie nového materiálu
+        
         cur.execute("""
             INSERT INTO materials (title, description, category_id, file_path, user_id, file_hash, focus_id, grade_id)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -181,8 +177,8 @@ def add_material():
             f"uploads/materials/{filename}",
             session["user_id"],
             file_hash,
-            focus_id or None,  # Ak focus_id nie je zvolený, vlož NULL
-            grade_id or None   # Ak grade_id nie je zvolený, vlož NULL
+            focus_id or None, 
+            grade_id or None   
         ))
 
         conn.commit()
@@ -210,7 +206,7 @@ def filter_materials():
     category   = request.args.get("category", "")
     focus      = request.args.get("focus", "")
     grade      = request.args.get("grade", "")
-    only_mine  = request.args.get("only_mine")  # ⬅️ nový parameter
+    only_mine  = request.args.get("only_mine") 
     page       = int(request.args.get("page", 1))
 
     per_page   = 6
@@ -260,7 +256,7 @@ def filter_materials():
         sql += " AND m.grade_id = %s"
         params.append(int(grade))
 
-    # 🆕 Filtruj len moje materiály, ak checkbox je zaškrtnutý
+    
     if only_mine == "1":
         sql += " AND m.user_id = %s"
         params.append(session["user_id"])
@@ -273,7 +269,7 @@ def filter_materials():
     cur.close()
     conn.close()
 
-    # Lokalizácia výsledkov
+    
     materials = []
     for row in rows[:per_page]:
         row["focus_label"] = _(row["focus_code"]) if row.get("focus_code") else None
@@ -404,7 +400,7 @@ def edit_material(material_id):
         focus_id = request.form.get("focus_id")
         grade_id = request.form.get("grade_id")
 
-        # Spracuj prázdne hodnoty na None
+        
         focus_id = int(focus_id) if focus_id else None
         grade_id = int(grade_id) if grade_id else None
 

@@ -3,14 +3,12 @@ from flask_babel import Babel, _
 from dotenv import load_dotenv
 import os
 from datetime import timedelta 
-# Import tvojich vlastných častí
 from materials import materials_bp
 from login import login_bp
 from problems import problems_bp
 from utils.utils import login_required
 from ai import ai_bp
 from flask_wtf import CSRFProtect 
-# Načítanie .env súboru
 load_dotenv()
 
 app = Flask(__name__)
@@ -18,7 +16,7 @@ app.secret_key = os.getenv("SECRET_KEY", "dev")
 app.config["UPLOAD_FOLDER"] = os.getenv("UPLOAD_FOLDER", "static/uploads")
 csrf = CSRFProtect(app)
 app.permanent_session_lifetime = timedelta(minutes=30)
-# Blueprinty
+
 app.register_blueprint(problems_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(materials_bp)
@@ -33,21 +31,20 @@ app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
 
 
 def get_locale():
-    # 1) manuálne zvolený
+    
     if (lang := session.get("lang")) in app.config["LANGUAGES"]:
         return lang
-    # 2) cez ?lang=
+    
     if (lang := request.args.get("lang")) in app.config["LANGUAGES"]:
         return lang
-    # 3) header
+
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
-# tu všetko do jedného:
+
 babel = Babel(app, locale_selector=get_locale)
 
 @app.context_processor
 def inject_get_locale():
-    # teraz vkladáme Jinjy do scope: get_locale() bude dostupné v šablónach
     return {'get_locale': get_locale}
 
 
@@ -72,7 +69,6 @@ def inject_global_notifications():
     return dict(notifications=notifications)
 
 
-# Základné routy
 @app.route("/")
 @login_required
 def index():
@@ -95,7 +91,7 @@ def materials():
 
 from notifications import notifications_bp
 app.register_blueprint(notifications_bp)
-# Spustenie
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True)
 
